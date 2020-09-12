@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="@string/menu_home" />
+
+        <item
+            android:id="@+id/nav_my_profile"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="My profile" />
+
+        <item
+            android:id="@+id/nav_my_visits"
+            android:icon="@drawable/ic_access_time_black_24dp"
+            android:title="My Visits" />
+
+        <item
+            android:id="@+id/nav_my_history"
+            android:icon="@drawable/ic_today_black_24dp"
+            android:title="Visits history" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="Log out" />
+    </group>
+</menu>
