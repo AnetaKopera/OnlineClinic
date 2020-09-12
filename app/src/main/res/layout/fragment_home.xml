@@ -42,7 +42,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:text="Find doctor by surname or specialisation:"
+        android:text="Umów się do lekarza:"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
@@ -57,9 +57,9 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Doctor's surname:"
         android:background="@drawable/edit_text_border"
         android:ems="10"
+        android:hint="Nazwisko doktora:"
         android:inputType="textPersonName"
         android:padding="8dp"
         android:textColor="#000000"
@@ -74,16 +74,30 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:hint="Specialisation:"
         android:background="@drawable/edit_text_border"
         android:ems="10"
+        android:hint="Specjalizacja:"
         android:inputType="textPersonName"
         android:padding="8dp"
         android:textColor="#000000"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/text_home"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3"/>
+        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+
+    <Button
+        android:id="@+id/btn_SearchDoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Szukaj"
+        android:textStyle="italic"
+        android:textColor="#ffffff"
+        android:background="@drawable/buttons_appearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.829"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

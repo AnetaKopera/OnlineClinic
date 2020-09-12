@@ -7,26 +7,31 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/home"
-            android:title="@string/menu_home" />
+            android:title="Strona główna" />
 
         <item
             android:id="@+id/nav_my_profile"
             android:icon="@drawable/ic_person_black_24dp"
-            android:title="My profile" />
+            android:title="Mój profil" />
 
         <item
             android:id="@+id/nav_my_visits"
             android:icon="@drawable/ic_access_time_black_24dp"
-            android:title="My Visits" />
+            android:title="Aktualne wizyty" />
 
         <item
             android:id="@+id/nav_my_history"
             android:icon="@drawable/ic_today_black_24dp"
-            android:title="Visits history" />
+            android:title="Historia wizyt" />
+
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="Kontakt" />
 
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
-            android:title="Log out" />
+            android:title="Wyloguj" />
     </group>
 </menu>
