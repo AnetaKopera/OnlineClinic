@@ -11,21 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.onlineclinic.JsonParser;
 import com.example.onlineclinic.R;
 
+import java.lang.reflect.Field;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -65,97 +65,107 @@ public class DisplayDoctorsFragment extends Fragment {
         protected String doInBackground(String... strings) {
             OkHttpClient client = new OkHttpClient();
 
-           /* RequestBody postData = new FormBody.Builder()
-                    .add("specialization", specialization)
-                    .add("doctor", doctor)
-                    .build();
-
-            String url_services = "http://10.0.2.2/online_clinic/search_doctor.php";
-            Request request = new Request.Builder()
-                    .url(url_services)
-                    .post(postData)
-                    .build();*/
             try {
-                /*Response response = client.newCall(request).execute();
-                result = Objects.requireNonNull(response.body()).string();
-                System.out.println(result);*/
 
                 JsonParser jsonParser = new JsonParser();
                 result = requireArguments().getString("search_doctors_result");
-
                 doctorAmount = requireArguments().getInt("search_doctors_amount");
-
 
                 System.out.println("xde" + result);
                 final LinkedHashMap<String, String> parsedDoctors;
                 parsedDoctors = jsonParser.parseDoctors(result);
                 final Object[] keys = parsedDoctors.keySet().toArray();
 
-                /*for (int i = 0; i < keys.length; i += 5) {
-                    System.out.println(" ");
-                    for (int j = 0; j < 5; j++) {
-                        System.out.println(keys[i + j] + "   " + parsedDoctors.get(keys[i + j]));
-                    }
-
-                }*/
-
                 requireActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         LinearLayout linear = view.findViewById(R.id.fragment_doctors_layout);
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
-                                (LinearLayout.LayoutParams.MATCH_PARENT,
-                                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                        //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                        Typeface typeface = ResourcesCompat.getFont(getActivity(), R.font.roboto_light);
+                        Typeface typeface_normal = ResourcesCompat.getFont(getActivity(), R.font.roboto);
+                        for (int i = 0; i < Objects.requireNonNull(keys).length; i += 6) {
+                            TableRow.LayoutParams btnParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+                            TableRow.LayoutParams editParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+                            TableRow.LayoutParams imageParams = new TableRow.LayoutParams(243, 243);
+
+                            TableLayout tl = new TableLayout(getActivity());
+                            tl.setPadding(25, 25, 0, 25);
+                            TableLayout.LayoutParams params_tl = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+                            params_tl.setMargins(24, 12, 24, 12);
+
+                            tl.setBackgroundResource(R.drawable.edit_text_border);
 
 
-                        for (int i = 0; i < Objects.requireNonNull(keys).length; i += 5) {
-                            LinearLayout.LayoutParams btnParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            LinearLayout.LayoutParams editParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            TableRow row1 = new TableRow(getActivity());
+                            TableRow.LayoutParams params_row = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT);
+                            row1.setLayoutParams(params_row);
+
+                            row1.setGravity(Gravity.CENTER);
+                            row1.setWeightSum(4);
+
+
+                            TableRow row2 = new TableRow(getActivity());
+                            row2.setLayoutParams(params_row);
+                            row2.setGravity(Gravity.CENTER);
+                            row2.setWeightSum(4);
 
                             Button btn = new Button(getActivity());
                             EditText edit = new EditText(getActivity());
 
-                            final String idDoctor = parsedDoctors.get(keys[i]);
-                            final String doctorData = "dr " + parsedDoctors.get(keys[i + 2]) + " " + parsedDoctors.get(keys[i + 3]);
-                            final String doctorSpecialization = parsedDoctors.get(keys[i + 1]);
 
+                            final int idDoctor = Integer.valueOf(parsedDoctors.get(keys[i]));
+                            final String doctorName = parsedDoctors.get(keys[i + 3]);
+                            final String doctorSurname = parsedDoctors.get(keys[i + 4]);
+                            final String doctorData = "dr " + doctorName + " " + doctorSurname;
+                            final String doctorSpecialization = parsedDoctors.get(keys[i + 1]);
+                            final String photoUrl = parsedDoctors.get(keys[i + 2]);
+
+                            ImageView image = new ImageView(getActivity());
+                            image.setImageResource(R.drawable.photo1);
+
+                            int resID = getResId(photoUrl, R.drawable.class);
+                            image.setImageDrawable(ContextCompat.getDrawable(requireActivity(), resID));
 
                             final String doctorInformation = doctorData + "\n" + doctorSpecialization;
 
                             btn.setText("WYBIERZ DOKTORA");
-                            btn.setBackgroundColor(Color.rgb(0,0,0));
-                            btn.setTextColor(Color.rgb(255, 255, 255));
+                            btn.setTypeface(typeface);
+                            btn.setBackgroundResource(R.drawable.button_style);
+                            btn.setTextColor(Color.rgb(0, 0, 0));
                             btn.setGravity(Gravity.CENTER);
+                            btn.setTextSize(20);
 
 
-                            edit.setBackgroundColor(Color.rgb(230, 230, 230));
-                            edit.setBackgroundResource(R.drawable.edit_text_border);
+                            edit.setBackgroundColor(Color.rgb(255, 255, 255));
                             edit.setEnabled(false);
                             edit.setTextColor(Color.rgb(0, 0, 0));
                             edit.setText(doctorInformation);
                             edit.setGravity(Gravity.CENTER);
+                            edit.setTypeface(typeface_normal);
+                            edit.setTextSize(20);
 
                             btn.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    System.out.println("Kliknieto w doktora o id: " + idDoctor);
-                                    /*if (UserActivity.getUserId().equals(""))  //User is not logged in
-                                    {
-                                        Toast.makeText(getActivity(),
-                                                R.string.sign_in_first, Toast.LENGTH_LONG).show();
-                                    } else    //User is logged in
-                                    {
-                                        changeFragment(argument, firmData, serviceTime, serviceName, servicePrice);
-                                    }*/
+                                    System.out.println("Kliknieto w doktora o id: " + idDoctor); /////////////////////////
+                                    changeFragment(idDoctor, doctorName, doctorSurname);
+
                                 }
                             });
 
-                            btnParams.setMargins(5, 0, 5, 0);
-                            linear.addView(btn, btnParams);
+                            editParams.weight = 3;
+                            imageParams.weight = 1;
+                            btnParams.weight = 1;
 
-                            editParams.setMargins(5, 0, 5, 10);
-                            linear.addView(edit, editParams);
+                            row1.addView(edit, editParams);
+                            row1.addView(image, imageParams);
+                            row2.addView(btn, btnParams);
 
+                            tl.addView(row1);
+                            tl.addView(row2);
+                            linear.addView(tl, params_tl);
 
                         }
                     }
@@ -169,21 +179,32 @@ public class DisplayDoctorsFragment extends Fragment {
 
         protected void onPostExecute(String result) {
             pDialog.dismiss();
-
         }
     }
 
-    private void changeFragment() {
+    public int getResId(String resName, Class<?> c) {
 
-       /* DisplayDoctorsFragment displayDoctorsFragment = new DisplayDoctorsFragment();
+        try {
+            Field idField = c.getDeclaredField(resName);
+            return idField.getInt(idField);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    private void changeFragment(int id, String name, String surname) {
+
+        DisplayServices displayServices = new DisplayServices();
         Bundle args = new Bundle();
-        args.putString("search_doctors_result", result);
-        args.putInt("search_doctors_amount", amount);
+        args.putInt("doctor_id", id);
+        args.putString("doctor_name", name);
+        args.putString("doctor_surname", surname);
 
-        displayDoctorsFragment.setArguments(args);
+        displayServices.setArguments(args);
 
         FragmentTransaction transaction = Objects.requireNonNull(requireActivity().getSupportFragmentManager()).beginTransaction();
-        transaction.replace(R.id.home_fragment, displayDoctorsFragment);
-        transaction.addToBackStack(null).commit();*/
+        transaction.replace(R.id.display_doctors_fragment, displayServices);
+        transaction.addToBackStack(null).commit();
     }
 }

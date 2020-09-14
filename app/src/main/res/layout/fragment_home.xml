@@ -28,8 +28,9 @@
     <View
         android:id="@+id/view"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_margin="8dp"
+        android:layout_height="270dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/shape"
         android:radius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,11 +46,11 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:text="Umów się do lekarza:\nPodaj:"
+        android:fontFamily="@font/roboto_light"
+        android:text="Znajdź doktora wpisując:"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
-        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view" />
@@ -66,8 +67,7 @@
         android:inputType="textPersonName"
         android:padding="8dp"
         android:textColor="#000000"
-        android:textStyle="italic"
-
+        android:fontFamily="@font/roboto"
         android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,10 +79,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="lub:"
+        android:fontFamily="@font/roboto_light"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
-        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_doctor" />
@@ -96,10 +96,11 @@
         android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="Specjalizacja:"
+        android:fontFamily="@font/roboto"
         android:inputType="textPersonName"
         android:padding="8dp"
         android:textColor="#000000"
-        android:textStyle="italic"
+
         android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,18 +116,21 @@
         app:layout_constraintTop_toBottomOf="@+id/et_specialization"
       >
 
-    <Button
-        android:id="@+id/btn_SearchDoctor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Szukaj"
-        android:textStyle="italic"
-        android:textColor="#ffffff"
-        android:layout_marginLeft="250dp"
-        android:background="@drawable/buttons_appearance"
+        <Button
+            android:id="@+id/btn_SearchDoctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:background="@drawable/buttons_appearance"
+            android:fontFamily="@font/roboto_light"
+            android:text="Szukaj"
+            android:textSize="18dp"
+            android:textColor="#ffffff"
+            android:textStyle="normal"
 
-        />
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

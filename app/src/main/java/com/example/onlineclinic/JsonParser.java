@@ -37,9 +37,9 @@ public class JsonParser
 
             for(int i=0; i<amount; i++)
             {
-                for(int j=0; j<5; j++)
+                for(int j=0; j<6; j++)
                 {
-                    String key = jsonObject.names().getString(i * 5 + j);
+                    String key = jsonObject.names().getString(i * 6 + j);
                     String value = jsonObject.get(key).toString();
 
                     map.put(key, value);
