@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.onlineclinic.ui.home.HomeFragment"
+        android:label=""
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_my_profile"
+            app:destination="@id/nav_my_profile" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_my_visits"
+            app:destination="@id/nav_my_visits" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_my_profile"
+        android:name="com.example.onlineclinic.ui.myprofile.MyProfileFragment"
+        android:label="My Profile"
+        tools:layout="@layout/fragment_my_profile">
+        <action
+            android:id="@+id/action_nav_my_profile_to_nav_my_visits"
+            app:destination="@id/nav_my_visits" />
+        <action
+            android:id="@+id/action_nav_my_profile_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_my_visits"
+        android:name="com.example.onlineclinic.ui.myvisits.MyVisitsFragment"
+        android:label="My Visits"
+        tools:layout="@layout/fragment_my_visits">
+        <action
+            android:id="@+id/action_nav_my_visits_to_nav_my_profile"
+            app:destination="@id/nav_my_profile" />
+        <action
+            android:id="@+id/action_nav_my_visits_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+
+
+</navigation>
