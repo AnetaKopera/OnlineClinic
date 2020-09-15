@@ -2,6 +2,7 @@ package com.example.onlineclinic.ui.home;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -11,9 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.onlineclinic.JsonParser;
@@ -32,23 +36,20 @@ public class DisplayServices extends Fragment {
 
     private ProgressDialog pDialog;
     private View view;
-    private String result;
-    private int doctorAmount;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_display_doctors, container, false);
-        //// new DisplayDoctorsFragment.ListAllDoctors().execute();
+        view = inflater.inflate(R.layout.fragment_display_services, container, false);
+        new DisplayServices.ListAllServices().execute();
         return view;
     }
 
-    class ListAllDoctors extends AsyncTask<String, String, String> {
+    class ListAllServices extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage(getResources().getString(R.string.loading_doctors));
+            pDialog.setMessage(getResources().getString(R.string.loading_services));
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -57,101 +58,133 @@ public class DisplayServices extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             OkHttpClient client = new OkHttpClient();
+            String idDoctor = String.valueOf(requireArguments().getInt("doctor_id"));
 
-           /* RequestBody postData = new FormBody.Builder()
-                    .add("specialization", specialization)
-                    .add("doctor", doctor)
+
+            RequestBody postData = new FormBody.Builder()
+                    .add("idDoctor", idDoctor)
                     .build();
 
-            String url_services = "http://10.0.2.2/online_clinic/search_doctor.php";
+            String url_services = "http://10.0.2.2/online_clinic/search_services.php";
             Request request = new Request.Builder()
                     .url(url_services)
                     .post(postData)
-                    .build();*/
+                    .build();
             try {
-                /*Response response = client.newCall(request).execute();
-                result = Objects.requireNonNull(response.body()).string();
-                System.out.println(result);*/
+                Response response = client.newCall(request).execute();
+                String result = Objects.requireNonNull(response.body()).string();
 
                 JsonParser jsonParser = new JsonParser();
-                result = requireArguments().getString("search_doctors_result");
-
-                doctorAmount = requireArguments().getInt("search_doctors_amount");
-
-
-                System.out.println("xde" + result);
-                final LinkedHashMap<String, String> parsedDoctors;
-                parsedDoctors = jsonParser.parseDoctors(result);
-                final Object[] keys = parsedDoctors.keySet().toArray();
-
-                /*for (int i = 0; i < keys.length; i += 5) {
-                    System.out.println(" ");
-                    for (int j = 0; j < 5; j++) {
-                        System.out.println(keys[i + j] + "   " + parsedDoctors.get(keys[i + j]));
-                    }
-
-                }*/
+                ;
+                final LinkedHashMap<String, String> parsedServices;
+                parsedServices = jsonParser.parseDoctors(result);
+                final Object[] keys = parsedServices.keySet().toArray();
 
                 requireActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        LinearLayout linear = view.findViewById(R.id.fragment_doctors_layout);
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
-                                (LinearLayout.LayoutParams.MATCH_PARENT,
-                                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                        LinearLayout linear = view.findViewById(R.id.fragment_services_layout);
+
+                        Typeface typeface = ResourcesCompat.getFont(getActivity(), R.font.roboto);
+                        Typeface typeface_bold = ResourcesCompat.getFont(getActivity(), R.font.roboto_bold);
+                        Typeface typeface_light = ResourcesCompat.getFont(getActivity(), R.font.roboto_light);
+
+                        for (int i = 0; i < Objects.requireNonNull(keys).length; i += 6) {
+
+                            TableRow.LayoutParams btnParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+                            TableRow.LayoutParams editParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+                            TableLayout tl = new TableLayout(getActivity());
+                            tl.setPadding(25, 25, 25, 25);
+                            TableLayout.LayoutParams params_tl = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+                            params_tl.setMargins(24, 12, 24, 12);
+
+                            tl.setBackgroundResource(R.drawable.layout_style);
 
 
-                        for (int i = 0; i < Objects.requireNonNull(keys).length; i += 5) {
-                            LinearLayout.LayoutParams btnParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            LinearLayout.LayoutParams editParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            TableRow row1 = new TableRow(getActivity());
+                            TableRow.LayoutParams params_row = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT);
+                            row1.setLayoutParams(params_row);
+
+                            row1.setGravity(Gravity.CENTER);
+                            row1.setWeightSum(4);
+
+
+                            TableRow row2 = new TableRow(getActivity());
+                            row2.setLayoutParams(params_row);
+                            row2.setGravity(Gravity.CENTER);
+                            row2.setWeightSum(4);
+
+                            TableRow row3 = new TableRow(getActivity());
+                            row3.setLayoutParams(params_row);
+                            row3.setGravity(Gravity.CENTER);
+                            row3.setWeightSum(4);
+
 
                             Button btn = new Button(getActivity());
                             EditText edit = new EditText(getActivity());
+                            EditText edit1 = new EditText(getActivity());
 
-                            final String idDoctor = parsedDoctors.get(keys[i]);
-                            final String doctorData = "dr " + parsedDoctors.get(keys[i + 2]) + " " + parsedDoctors.get(keys[i + 3]);
-                            final String doctorSpecialization = parsedDoctors.get(keys[i + 1]);
+                            final String idService = parsedServices.get(keys[i]);
+                            final String typeOfService = parsedServices.get(keys[i + 1]);
+                            final String description = parsedServices.get(keys[i + 2]);
+                            final String price = parsedServices.get(keys[i + 3]);
+                            final String timeOfService = parsedServices.get(keys[i + 4]);
+                            // final String idClinic = parsedServices.get(keys[i + 5]);
+
+                            final String serviceInformation = description + "\n" + "Cena " + price + " zł\n" + "Czas wizyty " + timeOfService + " min.";
 
 
-                            final String doctorInformation = doctorData + "\n" + doctorSpecialization;
-
-                            btn.setText("WYBIERZ DOKTORA");
-                            btn.setBackgroundColor(Color.rgb(243, 153, 75));
-                            btn.setTextColor(Color.rgb(255, 255, 255));
+                            btn.setText("WYBIERZ WIZYTĘ");
+                            btn.setTypeface(typeface_light);
+                            btn.setTextSize(20);
+                            btn.setBackgroundResource(R.drawable.button_style);
+                            btn.setTextColor(Color.rgb(0, 0, 0));
                             btn.setGravity(Gravity.CENTER);
 
 
-                            edit.setBackgroundColor(Color.rgb(230, 230, 230));
+                            edit1.setBackgroundColor(Color.rgb(228, 240, 241));
+                            edit1.setEnabled(false);
+                            edit1.setTextColor(Color.rgb(0, 0, 0));
+                            edit1.setText(typeOfService);
+                            edit1.setGravity(Gravity.CENTER);
+                            edit1.setTypeface(typeface_bold);
+                            edit1.setTextSize(20);
+
+                            edit.setBackgroundColor(Color.rgb(228, 240, 241));
                             edit.setEnabled(false);
                             edit.setTextColor(Color.rgb(0, 0, 0));
-                            edit.setText(doctorInformation);
+                            edit.setText(serviceInformation);
                             edit.setGravity(Gravity.CENTER);
+                            edit.setTypeface(typeface);
+                            edit.setTextSize(20);
 
                             btn.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    System.out.println("Kliknieto w doktora o id: " + idDoctor);
-                                    /*if (UserActivity.getUserId().equals(""))  //User is not logged in
-                                    {
-                                        Toast.makeText(getActivity(),
-                                                R.string.sign_in_first, Toast.LENGTH_LONG).show();
-                                    } else    //User is logged in
-                                    {
-                                        changeFragment(argument, firmData, serviceTime, serviceName, servicePrice);
-                                    }*/
+                                    System.out.println("Kliknieto w serwis o id: " + idService);
+                                    changeFragment();
                                 }
                             });
 
-                            btnParams.setMargins(5, 0, 5, 0);
-                            linear.addView(btn, btnParams);
+                            btnParams.setMargins(200, 10, 200, 10);
+                            editParams.setMargins(50, 0, 50, 0);
 
-                            editParams.setMargins(5, 0, 5, 10);
-                            linear.addView(edit, editParams);
+                            editParams.weight = 3;
+                            btnParams.weight = 3;
 
+                            row1.addView(edit1, editParams);
+                            row2.addView(edit, editParams);
+                            row3.addView(btn, btnParams);
 
+                            tl.addView(row1);
+                            tl.addView(row2);
+                            tl.addView(row3);
+                            linear.addView(tl, params_tl);
                         }
                     }
                 });
+
 
             } catch (Exception e) {
                 System.out.println("Error: " + e);

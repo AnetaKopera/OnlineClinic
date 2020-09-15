@@ -95,7 +95,7 @@ public class DisplayDoctorsFragment extends Fragment {
                             TableLayout.LayoutParams params_tl = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
                             params_tl.setMargins(24, 12, 24, 12);
 
-                            tl.setBackgroundResource(R.drawable.edit_text_border);
+                            tl.setBackgroundResource(R.drawable.layout_style);
 
 
                             TableRow row1 = new TableRow(getActivity());
@@ -138,7 +138,7 @@ public class DisplayDoctorsFragment extends Fragment {
                             btn.setTextSize(20);
 
 
-                            edit.setBackgroundColor(Color.rgb(255, 255, 255));
+                            edit.setBackgroundColor(Color.rgb(228, 240, 241));
                             edit.setEnabled(false);
                             edit.setTextColor(Color.rgb(0, 0, 0));
                             edit.setText(doctorInformation);
