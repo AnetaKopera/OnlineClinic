@@ -1,4 +1,4 @@
-package com.example.onlineclinic.ui;
+package com.example.onlineclinic;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.onlineclinic.R;
 import com.example.onlineclinic.UserActivity;
 import com.example.onlineclinic.MainActivity;
+import com.example.onlineclinic.ui.SharedPrefs;
 
 public class SplashActivity extends AppCompatActivity {
     //private String CITY_NAME = "city_name";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
+        System.out.println("SIEMANKO DZIAŁA TO");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
@@ -50,7 +53,7 @@ public class SplashActivity extends AppCompatActivity {
         Thread thread = new Thread() {
             public void run() {
                 try {
-                    sleep(3);
+                    sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {

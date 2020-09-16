@@ -9,7 +9,26 @@
         android:id="@+id/nav_home"
         android:name="com.example.onlineclinic.ui.home.HomeFragment"
         android:label=""
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_info"
+        android:name="com.example.onlineclinic.InfoFragment"
+        android:label="Kontakt"
+        tools:layout="@layout/fragment_info">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sign_in"
+        android:name="com.example.onlineclinic.SignInFragment"
+        android:label="Zaloguj się"
+        tools:layout="@layout/fragment_sign_in">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sign_up"
+        android:name="com.example.onlineclinic.SignUpFragment"
+        android:label="Zarejestruj się"
+        tools:layout="@layout/fragment_sign_up">
     </fragment>
 
 
