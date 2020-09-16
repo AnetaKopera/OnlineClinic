@@ -19,14 +19,14 @@
 
     <fragment
         android:id="@+id/nav_sign_in"
-        android:name="com.example.onlineclinic.SignInFragment"
+        android:name="com.example.onlineclinic.ui.SignInFragment"
         android:label="Zaloguj się"
         tools:layout="@layout/fragment_sign_in">
     </fragment>
 
     <fragment
         android:id="@+id/nav_sign_up"
-        android:name="com.example.onlineclinic.SignUpFragment"
+        android:name="com.example.onlineclinic.ui.SignUpFragment"
         android:label="Zarejestruj się"
         tools:layout="@layout/fragment_sign_up">
     </fragment>

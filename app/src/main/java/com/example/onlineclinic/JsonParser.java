@@ -107,7 +107,38 @@ public class JsonParser
         return amount;
     }
 
+    public LinkedHashMap<String, String> parseLogin(String s) throws Exception
+    {
+        json = s;
+        map = new LinkedHashMap<>();
 
+        try
+        {
+            jsonObject = new JSONObject(json);
+            validate = jsonObject.getInt("success");
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        if(validate > 0)
+        {
+            jsonObject = new JSONObject(json);
+
+            String key = "id";
+            String value = jsonObject.getString("id");
+
+            map.put(key, value);
+
+            key = "accountType";
+            value = jsonObject.getString("accountType");
+
+            map.put(key,value);
+        }
+
+        return map;
+    }
 
 
     public LinkedHashMap<String,String> parseJson(String s) throws Exception
@@ -148,38 +179,7 @@ public class JsonParser
     }
 
 
-    public LinkedHashMap<String, String> parseLogin(String s) throws Exception
-    {
-        json = s;
-        map = new LinkedHashMap<>();
 
-        try
-        {
-            jsonObject = new JSONObject(json);
-            validate = jsonObject.getInt("success");
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-
-        if(validate > 0)
-        {
-            jsonObject = new JSONObject(json);
-
-            String key = "id";
-            String value = jsonObject.getString("id");
-
-            map.put(key, value);
-
-            key = "userType";
-            value = jsonObject.getString("userType");
-
-            map.put(key,value);
-        }
-
-        return map;
-    }
 
     public LinkedHashMap<String, String> parseWorkers(String s) throws Exception
     {

@@ -15,4 +15,5 @@
     <string name="wait_doctors">Ładowanie listy pasujących doktorów</string>
     <string name="loading_doctors">Proszę czekać.\nTrwa ładowanie listy doktorów</string>
     <string name="loading_services">Proszę czekać trwa ładowanie usług</string>
+    <string name="bad_mail_pass">Nieprawidłowy email</string>
 </resources>

@@ -1,5 +1,6 @@
-package com.example.onlineclinic.ui.home.signin;
-/*
+package com.example.onlineclinic.ui;
+
+
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,10 +15,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
+import com.example.onlineclinic.UserActivity;
 import com.example.onlineclinic.JsonParser;
-
+import com.example.onlineclinic.MainActivity;
 import com.example.onlineclinic.R;
 
 import java.util.LinkedHashMap;
@@ -30,8 +31,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class SignInFragment extends Fragment
-{
+public class SignInFragment extends Fragment {
     private ProgressDialog pDialog;
 
     private EditText inputEmail;
@@ -43,9 +43,10 @@ public class SignInFragment extends Fragment
     private String noLogout = "false";
 
     public View onCreateView
-            (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        View view = inflater.inflate(R.layout.fragment_signin, container, false);
+            (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        System.out.println("siema w sign in");
+        View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
 
         inputEmail = view.findViewById(R.id.plainEmail);
         inputPassword = view.findViewById(R.id.plainPass);
@@ -53,23 +54,20 @@ public class SignInFragment extends Fragment
 
         Button signIn = view.findViewById(R.id.btnSignIn);
 
-        signIn.setOnClickListener(new View.OnClickListener()
-        {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 new SignInFragment.UserLogin().execute();
             }
         });
 
         CheckBox checkBox = view.findViewById(R.id.noLogoutCheck);
 
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked)
-            {
-                if(isChecked)
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                System.out.println("zmiana");
+                if (isChecked)
                     noLogout = "true";
                 else
                     noLogout = "false";
@@ -79,23 +77,21 @@ public class SignInFragment extends Fragment
         return view;
     }
 
-    class UserLogin extends AsyncTask<String, String, String>
-    {
+    class UserLogin extends AsyncTask<String, String, String> {
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             super.onPreExecute();
+            System.out.println("proszec czekac");
             pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage(getResources().getString(R.string.wait_sign_in));
+            pDialog.setMessage("Proszę czekać.\nTrwa logowanie");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
         }
 
         @Override
-        protected String doInBackground(String... strings)
-        {
-
+        protected String doInBackground(String... strings) {
+            System.out.println("logowanie");
             String Email = inputEmail.getText().toString();
             String Password = inputPassword.getText().toString();
 
@@ -106,53 +102,50 @@ public class SignInFragment extends Fragment
                     .add("password", Password)
                     .build();
 
-            String url_create_product = "http://10.0.2.2/bayb/login.php";
+            String url_create_product = "http://10.0.2.2/online_clinic/login.php";
             Request request = new Request.Builder()
                     .url(url_create_product)
                     .post(postData)
                     .build();
-            try
-            {
+            try {
                 Response response = client.newCall(request).execute();
-                String result = Objects.requireNonNull(response.body()).string();
 
+                String result = Objects.requireNonNull(response.body()).string();
+                System.out.println(result);
                 JsonParser jsonParser = new JsonParser();
 
 
                 parsedJson = jsonParser.parseLogin(result);
                 final Object[] keys = parsedJson.keySet().toArray();
                 userId = parsedJson.get(Objects.requireNonNull(keys)[0]);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 System.out.println("Error: " + e);
             }
             return null;
         }
-        protected void onPostExecute(String result)
-        {
+
+        protected void onPostExecute(String result) {
             pDialog.dismiss();
 
-            if(parsedJson.isEmpty())
-            {
-                Toast.makeText(getActivity(),
-                        R.string.bad_mail_pass, Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                UserCityFragment userCityFragment = new UserCityFragment();
+            System.out.println("parsed json " + parsedJson);
+
+            if (parsedJson.isEmpty()) {
+                Toast.makeText(getActivity(), "Nieprawidłowy email lub hasło", Toast.LENGTH_LONG).show();
+            } else {
+                // UserAcitivity userCityFragment = new UserAcitivity();
 
                 Bundle args = new Bundle();
                 args.putString("USER_ID", userId);
                 args.putString("NO_LOGOUT", noLogout);
 
-                userCityFragment.setArguments(args);
+                System.out.println("userID TO " + userId + " nie wylogowywyuj " + noLogout);
+                //userCityFragment.setArguments(args);
 
-                FragmentTransaction transaction =
+                /*FragmentTransaction transaction =
                         Objects.requireNonNull(Objects.requireNonNull(getActivity()).getSupportFragmentManager()).beginTransaction();
                 transaction.replace(R.id.fragment_sign_in, userCityFragment);
-                transaction.addToBackStack(null).commit();
+                transaction.addToBackStack(null).commit();*/
             }
         }
     }
-}*/
+}
