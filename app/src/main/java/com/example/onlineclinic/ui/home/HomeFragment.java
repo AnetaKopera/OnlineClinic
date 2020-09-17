@@ -88,107 +88,12 @@ public class HomeFragment extends Fragment {
             try {
                 Response response = client.newCall(request).execute();
                 result = Objects.requireNonNull(response.body()).string();
-                System.out.println(result);
-
+                //System.out.println(result);
                 JsonParser jsonParser = new JsonParser();
 
                 amount = jsonParser.getQueryAmount(result);
+                //System.out.println("Query amount= " + amount);
 
-                System.out.println("Query amount= " + amount);
-
-
-                /*final LinkedHashMap<String, String> parsedDoctors;
-                parsedDoctors = jsonParser.parseDoctors(result);
-                final Object[] keys = parsedDoctors.keySet().toArray();
-
-                for (int i = 0; i < keys.length; i += 5) {
-                    System.out.println(" ");
-                    for (int j = 0; j < 5; j++) {
-                        System.out.println(keys[i + j] + "   " + parsedDoctors.get(keys[i + j]));
-                    }
-
-                }*/
-/*
-                //Generate buttons dynamically based on JSON
-
-                Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        LinearLayout linear = view.findViewById(R.id.services_linear);
-
-                        Typeface typeface = ResourcesCompat.getFont(getActivity(), R.font.oregano);
-
-                        if (parsedServices.isEmpty()) {
-                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
-                                    (LinearLayout.LayoutParams.MATCH_PARENT,
-                                            LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                            Button btn = new Button(getActivity());
-                            btn.setText(R.string.no_services);
-                            btn.setBackgroundResource(R.drawable.gradient_1);
-                            btn.setTextColor(Color.rgb(255, 255, 255));
-                            btn.setTypeface(typeface);
-
-                            params.setMargins(10, 3, 10, 3);
-                            linear.addView(btn, params);
-                        } else {
-
-                            for (int i = 0; i < Objects.requireNonNull(keys).length; i += 5) {
-                                LinearLayout.LayoutParams btnParams = new LinearLayout.LayoutParams
-                                        (LinearLayout.LayoutParams.MATCH_PARENT,
-                                                LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                                LinearLayout.LayoutParams editParams = new LinearLayout.LayoutParams
-                                        (LinearLayout.LayoutParams.MATCH_PARENT,
-                                                LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                                Button btn = new Button(getActivity());
-                                EditText edit = new EditText(getActivity());
-
-                                final String argument = parsedServices.get(keys[i]);
-                                final String firmData = " " + parsedServices.get(keys[i + 2]) + "\n"
-                                        + " " + getResources().getString(R.string.price) + " " + parsedServices.get(keys[i + 3]) + " PLN \n"
-                                        + " " + getResources().getString(R.string.time) + " " + parsedServices.get(keys[i + 4]) + " MIN";
-                                final String serviceTime = parsedServices.get(keys[i + 4]);
-                                final String serviceName = parsedServices.get(keys[i + 1]);
-                                final String servicePrice = parsedServices.get(keys[i + 3]);
-
-                                btn.setText(serviceName);
-                                btn.setBackgroundResource(R.drawable.gradient_buttons);
-                                btn.setTextColor(Color.rgb(255, 255, 255));
-                                btn.setGravity(Gravity.CENTER);
-                                btn.setTypeface(typeface);
-
-                                edit.setBackgroundColor(Color.rgb(230, 230, 230));
-                                edit.setEnabled(false);
-                                edit.setTextColor(Color.rgb(0, 0, 0));
-                                edit.setText(firmData);
-                                edit.setGravity(Gravity.CENTER);
-                                edit.setTypeface(typeface);
-
-                                btn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (UserActivity.getUserId().equals(""))  //User is not logged in
-                                        {
-                                            Toast.makeText(getActivity(),
-                                                    R.string.sign_in_first, Toast.LENGTH_LONG).show();
-                                        } else    //User is logged in
-                                        {
-                                            changeFragment(argument, firmData, serviceTime, serviceName, servicePrice);
-                                        }
-                                    }
-                                });
-
-                                btnParams.setMargins(5, 0, 5, 0);
-                                linear.addView(btn, btnParams);
-
-                                editParams.setMargins(5, 0, 5, 10);
-                                linear.addView(edit, editParams);
-                            }
-                        }
-                    }
-                });*/
             } catch (Exception e) {
                 System.out.println("Error: " + e);
             }

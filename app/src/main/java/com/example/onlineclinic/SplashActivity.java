@@ -9,12 +9,9 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.onlineclinic.UserActivity;
-import com.example.onlineclinic.MainActivity;
 import com.example.onlineclinic.ui.SharedPrefs;
 
 public class SplashActivity extends AppCompatActivity {
-    //private String CITY_NAME = "city_name";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,12 +36,7 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             intent = new Intent(this, UserActivity.class);
 
-            //CITY_NAME += noLogout;
-
-            //String city_name = SharedPrefs.loadData(this,CITY_NAME);
-
             UserActivity.setUserId(noLogout);
-            // UserActivity.setUserCity(city_name);
         }
 
 
@@ -55,10 +47,9 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    System.out.println("POKAZUJE SPLASH SCREENA");
+
                     startActivity(intent);
                     finish();
-                    System.out.println("koniec");
                 }
             }
         };

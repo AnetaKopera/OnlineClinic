@@ -1,7 +1,9 @@
 package com.example.onlineclinic.ui;
 
+import com.example.onlineclinic.UserActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,9 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.onlineclinic.UserActivity;
 import com.example.onlineclinic.JsonParser;
-import com.example.onlineclinic.MainActivity;
 import com.example.onlineclinic.R;
 
 import java.util.LinkedHashMap;
@@ -45,12 +45,10 @@ public class SignInFragment extends Fragment {
     public View onCreateView
             (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        System.out.println("siema w sign in");
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
 
         inputEmail = view.findViewById(R.id.plainEmail);
         inputPassword = view.findViewById(R.id.plainPass);
-
 
         Button signIn = view.findViewById(R.id.btnSignIn);
 
@@ -66,7 +64,7 @@ public class SignInFragment extends Fragment {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                System.out.println("zmiana");
+
                 if (isChecked)
                     noLogout = "true";
                 else
@@ -81,7 +79,7 @@ public class SignInFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            System.out.println("proszec czekac");
+
             pDialog = new ProgressDialog(getActivity());
             pDialog.setMessage("Proszę czekać.\nTrwa logowanie");
             pDialog.setIndeterminate(false);
@@ -91,35 +89,41 @@ public class SignInFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... strings) {
-            System.out.println("logowanie");
+
             String Email = inputEmail.getText().toString();
             String Password = inputPassword.getText().toString();
 
-            OkHttpClient client = new OkHttpClient();
+            if (Email.isEmpty()) {
+                Toast.makeText(getActivity(), "Podaj email", Toast.LENGTH_LONG).show();
+            } else if (Password.isEmpty()) {
+                Toast.makeText(getActivity(), "Podaj hasło", Toast.LENGTH_LONG).show();
+            } else {
 
-            RequestBody postData = new FormBody.Builder()
-                    .add("login", Email)
-                    .add("password", Password)
-                    .build();
+                OkHttpClient client = new OkHttpClient();
 
-            String url_create_product = "http://10.0.2.2/online_clinic/login.php";
-            Request request = new Request.Builder()
-                    .url(url_create_product)
-                    .post(postData)
-                    .build();
-            try {
-                Response response = client.newCall(request).execute();
+                RequestBody postData = new FormBody.Builder()
+                        .add("login", Email)
+                        .add("password", Password)
+                        .build();
 
-                String result = Objects.requireNonNull(response.body()).string();
-                System.out.println(result);
-                JsonParser jsonParser = new JsonParser();
+                String url_create_product = "http://10.0.2.2/online_clinic/login.php";
+                Request request = new Request.Builder()
+                        .url(url_create_product)
+                        .post(postData)
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
 
+                    String result = Objects.requireNonNull(response.body()).string();
+                    System.out.println(result);
+                    JsonParser jsonParser = new JsonParser();
 
-                parsedJson = jsonParser.parseLogin(result);
-                final Object[] keys = parsedJson.keySet().toArray();
-                userId = parsedJson.get(Objects.requireNonNull(keys)[0]);
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
+                    parsedJson = jsonParser.parseLogin(result);
+                    final Object[] keys = parsedJson.keySet().toArray();
+                    userId = parsedJson.get(Objects.requireNonNull(keys)[0]);
+                } catch (Exception e) {
+                    System.out.println("Error: " + e);
+                }
             }
             return null;
         }
@@ -127,24 +131,25 @@ public class SignInFragment extends Fragment {
         protected void onPostExecute(String result) {
             pDialog.dismiss();
 
-            System.out.println("parsed json " + parsedJson);
+            //System.out.println("parsed json " + parsedJson);
 
             if (parsedJson.isEmpty()) {
                 Toast.makeText(getActivity(), "Nieprawidłowy email lub hasło", Toast.LENGTH_LONG).show();
             } else {
-                // UserAcitivity userCityFragment = new UserAcitivity();
+                if (noLogout.equals("true")) {
+                    SharedPrefs.saveData(getActivity(), "who_is_logged", userId);
+                } else {
+                    SharedPrefs.saveData(getActivity(), "who_is_logged", "Nobody");
+                }
 
-                Bundle args = new Bundle();
-                args.putString("USER_ID", userId);
-                args.putString("NO_LOGOUT", noLogout);
+                Intent intent = new Intent(getActivity(), UserActivity.class);
+                //intent.putExtra("loged_user", userId);
 
-                System.out.println("userID TO " + userId + " nie wylogowywyuj " + noLogout);
-                //userCityFragment.setArguments(args);
+                UserActivity.setUserId(userId);
 
-                /*FragmentTransaction transaction =
-                        Objects.requireNonNull(Objects.requireNonNull(getActivity()).getSupportFragmentManager()).beginTransaction();
-                transaction.replace(R.id.fragment_sign_in, userCityFragment);
-                transaction.addToBackStack(null).commit();*/
+                startActivity(intent);
+                requireActivity().finish();
+
             }
         }
     }
