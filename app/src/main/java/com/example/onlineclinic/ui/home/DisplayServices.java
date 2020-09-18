@@ -1,5 +1,7 @@
 package com.example.onlineclinic.ui.home;
 
+import com.example.onlineclinic.UserActivity;
+
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -14,11 +16,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.onlineclinic.JsonParser;
 import com.example.onlineclinic.R;
@@ -36,6 +40,9 @@ public class DisplayServices extends Fragment {
 
     private ProgressDialog pDialog;
     private View view;
+    private String idDoctor;
+    private String choosedService;
+    private String time;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -58,7 +65,7 @@ public class DisplayServices extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             OkHttpClient client = new OkHttpClient();
-            String idDoctor = String.valueOf(requireArguments().getInt("doctor_id"));
+            idDoctor = String.valueOf(requireArguments().getInt("doctor_id"));
 
 
             RequestBody postData = new FormBody.Builder()
@@ -163,6 +170,8 @@ public class DisplayServices extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     System.out.println("Kliknieto w serwis o id: " + idService);
+                                    choosedService = idService;
+                                    time =  timeOfService;
                                     changeFragment();
                                 }
                             });
@@ -199,16 +208,25 @@ public class DisplayServices extends Fragment {
     }
 
     private void changeFragment() {
-
-       /* DisplayDoctorsFragment displayDoctorsFragment = new DisplayDoctorsFragment();
+        //tescik
+        if (UserActivity.getUserId().equals(""))  //User is not logged in
+        {
+            Toast.makeText(getActivity(),"Niezalogowany", Toast.LENGTH_LONG).show();
+        } else    //User is logged in
+        {
+            Toast.makeText(getActivity(),"ZALOGOWANY", Toast.LENGTH_LONG).show();
+            //changeFragment(argument, firmData, serviceTime, serviceName, servicePrice);
+        }
+        ChooseDateFragment chooseDateFragment = new ChooseDateFragment();
         Bundle args = new Bundle();
-        args.putString("search_doctors_result", result);
-        args.putInt("search_doctors_amount", amount);
+        args.putString("idDoctor", idDoctor);
+        args.putString("idService", choosedService);
+        args.putString("timeOfService", time);
 
-        displayDoctorsFragment.setArguments(args);
+        chooseDateFragment.setArguments(args);
 
         FragmentTransaction transaction = Objects.requireNonNull(requireActivity().getSupportFragmentManager()).beginTransaction();
-        transaction.replace(R.id.home_fragment, displayDoctorsFragment);
-        transaction.addToBackStack(null).commit();*/
+        transaction.replace(R.id.home_fragment, chooseDateFragment);
+        transaction.addToBackStack(null).commit();
     }
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_order_zone">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#7BCACE">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp">
+
+
+            <ImageView
+                android:layout_width="126dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:src="@drawable/icon_3_5"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wybierz datę wizyty"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:fontFamily="@font/roboto_light"
+                android:layout_marginBottom="16dp"
+                android:textAlignment="center"/>
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#FFFFFF" />
+
+
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/button_style"
+                android:fontFamily="@font/roboto_light"
+                android:padding="10dp"
+                android:text="DALEJ"
+                android:textColor="#000000"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
