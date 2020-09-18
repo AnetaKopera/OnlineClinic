@@ -5,40 +5,32 @@ import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
 
-public class JsonParser
-{
+public class JsonParser {
     private String json;
     private JSONObject jsonObject;
     private LinkedHashMap<String, String> map;
-    private int validate = 0;   //Is (success == 1) ?
+    private int validate = 0;
     private int amount = 0;
 
-    public LinkedHashMap<String,String> parseDoctors(String s) throws Exception
-    {
+    public LinkedHashMap<String, String> parseDoctors(String s) throws Exception {
         json = s;
         map = new LinkedHashMap<>();
 
-        try
-        {
+        try {
             jsonObject = new JSONObject(json);
             validate = jsonObject.getInt("success");
             amount = jsonObject.getInt("query_amount");
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if(validate == 1 && amount > 0)
-        {
+        if (validate == 1 && amount > 0) {
             String[] temp = json.split("(?=\"0_id)");
             json = "{" + temp[1];
             jsonObject = new JSONObject(json);
 
-            for(int i=0; i<amount; i++)
-            {
-                for(int j=0; j<6; j++)
-                {
+            for (int i = 0; i < amount; i++) {
+                for (int j = 0; j < 6; j++) {
                     String key = jsonObject.names().getString(i * 6 + j);
                     String value = jsonObject.get(key).toString();
 
@@ -50,32 +42,25 @@ public class JsonParser
         return map;
     }
 
-    public LinkedHashMap<String,String> parseServices(String s) throws Exception
-    {
+    public LinkedHashMap<String, String> parseServices(String s) throws Exception {
         json = s;
         map = new LinkedHashMap<>();
 
-        try
-        {
+        try {
             jsonObject = new JSONObject(json);
             validate = jsonObject.getInt("success");
             amount = jsonObject.getInt("query_amount");
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if(validate == 1 && amount > 0)
-        {
+        if (validate == 1 && amount > 0) {
             String[] temp = json.split("(?=\"0_id)");
             json = "{" + temp[1];
             jsonObject = new JSONObject(json);
 
-            for(int i=0; i<amount; i++)
-            {
-                for(int j=0; j<6; j++)
-                {
+            for (int i = 0; i < amount; i++) {
+                for (int j = 0; j < 6; j++) {
                     String key = jsonObject.names().getString(i * 6 + j);
                     String value = jsonObject.get(key).toString();
 
@@ -87,19 +72,15 @@ public class JsonParser
         return map;
     }
 
-    public int getQueryAmount(String s) throws Exception
-    {
+    public int getQueryAmount(String s) throws Exception {
         json = s;
         map = new LinkedHashMap<>();
 
-        try
-        {
+        try {
             jsonObject = new JSONObject(json);
             validate = jsonObject.getInt("success");
             amount = jsonObject.getInt("query_amount");
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -107,23 +88,18 @@ public class JsonParser
         return amount;
     }
 
-    public LinkedHashMap<String, String> parseLogin(String s) throws Exception
-    {
+    public LinkedHashMap<String, String> parseLogin(String s) throws Exception {
         json = s;
         map = new LinkedHashMap<>();
 
-        try
-        {
+        try {
             jsonObject = new JSONObject(json);
             validate = jsonObject.getInt("success");
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if(validate > 0)
-        {
+        if (validate > 0) {
             jsonObject = new JSONObject(json);
 
             String key = "id";
@@ -133,40 +109,62 @@ public class JsonParser
 
             key = "accountType";
             value = jsonObject.getString("accountType");
+            map.put(key, value);
 
-            map.put(key,value);
+            key = "clientName";
+            value = jsonObject.getString("clientName");
+
+            map.put(key, value);
         }
 
         return map;
     }
 
-
-    public LinkedHashMap<String,String> parseJson(String s) throws Exception
-    {
+    public LinkedHashMap<String, String> parseSignUp(String s) {
         json = s;
         map = new LinkedHashMap<>();
 
-        try
-        {
+        try {
             jsonObject = new JSONObject(json);
             validate = jsonObject.getInt("success");
-            amount = jsonObject.getInt("query_amount");
-        }
-        catch (JSONException e)
-        {
+            map.put("success", String.valueOf(validate));
+
+            if (validate > 0) {
+                jsonObject = new JSONObject(json);
+
+                String key = "id";
+                String value = jsonObject.getString("id");
+
+                map.put(key, value);
+
+            }
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if(validate == 1 && amount > 0)
-        {
+
+        return map;
+    }
+
+    public LinkedHashMap<String, String> parseJson(String s) throws Exception {
+        json = s;
+        map = new LinkedHashMap<>();
+
+        try {
+            jsonObject = new JSONObject(json);
+            validate = jsonObject.getInt("success");
+            amount = jsonObject.getInt("query_amount");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (validate == 1 && amount > 0) {
             String[] temp = json.split("(?=\"id_0)");
             json = "{" + temp[1];
             jsonObject = new JSONObject(json);
 
-            for(int i=0; i<amount; i++)
-            {
-                for(int j=0; j<4; j++)
-                {
+            for (int i = 0; i < amount; i++) {
+                for (int j = 0; j < 4; j++) {
                     String key = jsonObject.names().getString(i * 4 + j);
                     String value = jsonObject.get(key).toString();
 
@@ -179,86 +177,57 @@ public class JsonParser
     }
 
 
-
-
-    public LinkedHashMap<String, String> parseWorkers(String s) throws Exception
-    {
+    public LinkedHashMap<String, String> parseWorkers(String s) throws Exception {
         json = s;
         map = new LinkedHashMap<>();
 
-        try
-        {
+        try {
             jsonObject = new JSONObject(json);
             validate = jsonObject.getInt("success");
             amount = jsonObject.getInt("query_amount");
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if(validate != 0 && amount != 0)
-        {
+        if (validate != 0 && amount != 0) {
             jsonObject = new JSONObject(json);
 
-            for(int i=0; i<amount; i++)
-            {
+            for (int i = 0; i < amount; i++) {
                 String key = i + "_idWorker";
                 String value = jsonObject.getString(key);
 
-                map.put(key,value);
+                map.put(key, value);
 
                 key = i + "_Name";
                 value = jsonObject.getString(key);
 
-                map.put(key,value);
+                map.put(key, value);
 
                 key = i + "_Surname";
                 value = jsonObject.getString(key);
 
-                map.put(key,value);
+                map.put(key, value);
             }
         }
 
         return map;
     }
 
-    public String parseSignUp(String s)
-    {
-        json = s;
 
-        try
-        {
-            jsonObject = new JSONObject(json);
-            validate = jsonObject.getInt("success");
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-
-        return String.valueOf(validate);
-    }
-
-    public LinkedHashMap<String, String> parseHours(String h) throws Exception
-    {
+    public LinkedHashMap<String, String> parseHours(String h) throws Exception {
         json = h;
         map = new LinkedHashMap<>();
 
-        try
-        {
+        try {
             jsonObject = new JSONObject(json);
             validate = jsonObject.getInt("success");
-            if(validate > 0 )
+            if (validate > 0)
                 amount = jsonObject.getInt("query_amount");
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        for(int i=0; i<amount; i++)
-        {
+        for (int i = 0; i < amount; i++) {
             String key = i + "_hour";
             String value = jsonObject.getString(key);
 
@@ -267,18 +236,14 @@ public class JsonParser
         return map;
     }
 
-    public LinkedHashMap<String, String> parseUserProfile(String p) throws Exception
-    {
+    public LinkedHashMap<String, String> parseUserProfile(String p) throws Exception {
         json = p;
         map = new LinkedHashMap<>();
 
-        try
-        {
+        try {
             jsonObject = new JSONObject(json);
             validate = jsonObject.getInt("success");
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -306,26 +271,21 @@ public class JsonParser
         return map;
     }
 
-    public LinkedHashMap<String, String> parseOrders(String o) throws Exception
-    {
+    public LinkedHashMap<String, String> parseOrders(String o) throws Exception {
         json = o;
 
         System.out.println("JSON: " + json);
         map = new LinkedHashMap<>();
 
-        try
-        {
+        try {
             jsonObject = new JSONObject(json);
             validate = jsonObject.getInt("success");
             amount = jsonObject.getInt("query_amount");
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        for(int i=0; i<amount; i++)
-        {
+        for (int i = 0; i < amount; i++) {
             String key = "nameService_" + i;
             String value = jsonObject.getString(key);
 

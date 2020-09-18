@@ -41,6 +41,7 @@ public class SignInFragment extends Fragment {
 
     private String userId;
     private String noLogout = "false";
+    private String clientName;
 
     public View onCreateView
             (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -120,7 +121,8 @@ public class SignInFragment extends Fragment {
 
                     parsedJson = jsonParser.parseLogin(result);
                     final Object[] keys = parsedJson.keySet().toArray();
-                    userId = parsedJson.get(Objects.requireNonNull(keys)[0]);
+                    userId = parsedJson.get("id");
+                    clientName = parsedJson.get("clientName");
                 } catch (Exception e) {
                     System.out.println("Error: " + e);
                 }
@@ -130,8 +132,6 @@ public class SignInFragment extends Fragment {
 
         protected void onPostExecute(String result) {
             pDialog.dismiss();
-
-            //System.out.println("parsed json " + parsedJson);
 
             if (parsedJson.isEmpty()) {
                 Toast.makeText(getActivity(), "Nieprawidłowy email lub hasło", Toast.LENGTH_LONG).show();
@@ -143,12 +143,12 @@ public class SignInFragment extends Fragment {
                 }
 
                 Intent intent = new Intent(getActivity(), UserActivity.class);
-                //intent.putExtra("loged_user", userId);
 
                 UserActivity.setUserId(userId);
 
                 startActivity(intent);
                 requireActivity().finish();
+                Toast.makeText(getActivity(), "Witaj " + clientName + "!", Toast.LENGTH_LONG).show();
 
             }
         }
