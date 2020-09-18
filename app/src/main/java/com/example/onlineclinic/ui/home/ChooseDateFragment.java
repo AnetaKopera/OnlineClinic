@@ -1,6 +1,5 @@
 package com.example.onlineclinic.ui.home;
 
-import android.app.ProgressDialog;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,11 +13,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.onlineclinic.JsonParser;
 import com.example.onlineclinic.R;
+import com.example.onlineclinic.ui.home.HoursFragment;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -49,13 +51,15 @@ public class ChooseDateFragment extends Fragment {
         currentDate = formatter.format(date);
         selectedDate = currentDate;
 
+
         current = Integer.parseInt(currentDate.substring(0, 4) + currentDate.substring(5, 7) + currentDate.substring(8));
         selected = Integer.parseInt(selectedDate.substring(0, 4) + selectedDate.substring(5, 7) + selectedDate.substring(8));
 
         next = view.findViewById(R.id.btnNext);
 
-
+        Calendar c = Calendar.getInstance();
         CalendarView calendarView = view.findViewById(R.id.calendarView);
+        calendarView.setMinDate(c.getTimeInMillis());
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int selected_year, int selected_month, int selected_day) {
@@ -91,7 +95,7 @@ public class ChooseDateFragment extends Fragment {
                     new ChooseDateFragment.isAvailableDate().execute();
 
                 } else {
-                    Toast.makeText(getActivity(), "Błędna data wizyty", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Błędna data wizyty", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -135,10 +139,21 @@ public class ChooseDateFragment extends Fragment {
 
         protected void onPostExecute(String result) {
             if (amount != 0) {
-                Toast.makeText(getActivity(), "No elo mordo!", Toast.LENGTH_LONG).show();
-                //zmieniamy fragment do godzin
+
+                HoursFragment hoursFragment = new HoursFragment();
+                Bundle args = new Bundle();
+                args.putString("idDoctor", requireArguments().getString("idDoctor"));
+                args.putString("idService", requireArguments().getString("idService"));
+                args.putString("timeOfService",  requireArguments().getString("timeOfService"));
+                args.putString("dateVisit",  selectedDate);
+
+                hoursFragment.setArguments(args);
+
+                FragmentTransaction transaction = Objects.requireNonNull(requireActivity().getSupportFragmentManager()).beginTransaction();
+                transaction.replace(R.id.home_fragment, hoursFragment);
+                transaction.addToBackStack(null).commit();
             } else {
-                Toast.makeText(getActivity(), "Brak dostępnych terminów w ten dzień", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Brak dostępnych terminów w ten dzień", Toast.LENGTH_SHORT).show();
             }
         }
 

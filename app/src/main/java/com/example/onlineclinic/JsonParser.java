@@ -146,6 +146,28 @@ public class JsonParser {
         return map;
     }
 
+    public LinkedHashMap<String, String> parseHours(String h) throws Exception {
+        json = h;
+        map = new LinkedHashMap<>();
+
+        try {
+            jsonObject = new JSONObject(json);
+            validate = jsonObject.getInt("success");
+            if (validate > 0)
+                amount = jsonObject.getInt("query_amount");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < amount; i++) {
+            String key = i + "_hour";
+            String value = jsonObject.getString(key);
+
+            map.put(key, value);
+        }
+        return map;
+    }
+
     public LinkedHashMap<String, String> parseJson(String s) throws Exception {
         json = s;
         map = new LinkedHashMap<>();
@@ -214,27 +236,7 @@ public class JsonParser {
     }
 
 
-    public LinkedHashMap<String, String> parseHours(String h) throws Exception {
-        json = h;
-        map = new LinkedHashMap<>();
 
-        try {
-            jsonObject = new JSONObject(json);
-            validate = jsonObject.getInt("success");
-            if (validate > 0)
-                amount = jsonObject.getInt("query_amount");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        for (int i = 0; i < amount; i++) {
-            String key = i + "_hour";
-            String value = jsonObject.getString(key);
-
-            map.put(key, value);
-        }
-        return map;
-    }
 
     public LinkedHashMap<String, String> parseUserProfile(String p) throws Exception {
         json = p;

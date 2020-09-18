@@ -209,14 +209,14 @@ public class DisplayServices extends Fragment {
 
     private void changeFragment() {
         //tescik
-        if (UserActivity.getUserId().equals(""))  //User is not logged in
+        /*if (UserActivity.getUserId().equals(""))  //User is not logged in
         {
             Toast.makeText(getActivity(),"Niezalogowany", Toast.LENGTH_LONG).show();
         } else    //User is logged in
         {
             Toast.makeText(getActivity(),"ZALOGOWANY", Toast.LENGTH_LONG).show();
             //changeFragment(argument, firmData, serviceTime, serviceName, servicePrice);
-        }
+        }*/
         ChooseDateFragment chooseDateFragment = new ChooseDateFragment();
         Bundle args = new Bundle();
         args.putString("idDoctor", idDoctor);
