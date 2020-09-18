@@ -41,8 +41,11 @@ public class DisplayServices extends Fragment {
     private ProgressDialog pDialog;
     private View view;
     private String idDoctor;
-    private String choosedService;
-    private String time;
+    private String selectedService;
+    private String selectedTime;
+    private String selectedTypeOfService = "";
+    private String selectedDescription = "";
+    private String selectedPrice = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -170,8 +173,11 @@ public class DisplayServices extends Fragment {
                                 @Override
                                 public void onClick(View v) {
                                     System.out.println("Kliknieto w serwis o id: " + idService);
-                                    choosedService = idService;
-                                    time =  timeOfService;
+                                    selectedService = idService;
+                                    selectedDescription = description;
+                                    selectedPrice = price;
+                                    selectedTypeOfService = typeOfService;
+                                    selectedTime = timeOfService;
                                     changeFragment();
                                 }
                             });
@@ -220,13 +226,18 @@ public class DisplayServices extends Fragment {
         ChooseDateFragment chooseDateFragment = new ChooseDateFragment();
         Bundle args = new Bundle();
         args.putString("idDoctor", idDoctor);
-        args.putString("idService", choosedService);
-        args.putString("timeOfService", time);
+        args.putString("doctor_name", requireArguments().getString("doctor_name"));
+        args.putString("doctor_surname", requireArguments().getString("doctor_surname"));
+        args.putString("idService", selectedService);
+        args.putString("description", selectedDescription);
+        args.putString("price", selectedPrice);
+        args.putString("typeOfService", selectedTypeOfService);
+        args.putString("timeOfService", selectedTime);
 
         chooseDateFragment.setArguments(args);
 
         FragmentTransaction transaction = Objects.requireNonNull(requireActivity().getSupportFragmentManager()).beginTransaction();
-        transaction.replace(R.id.home_fragment, chooseDateFragment);
+        transaction.replace(R.id.display_services_fragment, chooseDateFragment);
         transaction.addToBackStack(null).commit();
     }
 }

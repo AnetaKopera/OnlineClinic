@@ -51,6 +51,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 doctor = String.valueOf(et_doctor.getText());
                 specialization = String.valueOf(et_specialization.getText());
+                et_doctor.setText("");
+                et_specialization.setText("");
 
                 new HomeFragment.ListAllDoctors().execute();
             }

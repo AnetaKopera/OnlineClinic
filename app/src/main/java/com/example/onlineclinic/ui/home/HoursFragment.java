@@ -42,37 +42,15 @@ import okhttp3.Response;
 
 public class HoursFragment extends Fragment {
 
-    private String currentDate;
-    private String selectedDate;
-
-    private int current;
-    private int selected;
-
-    private Button next;
     private ProgressDialog pDialog;
 
     private View view;
     private String selectedHour="";
 
-    public View onCreateView
-            (@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_hours, container, false);
         new HoursFragment.loadHours().execute();
-
-        /*next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (selected >= current) {
-
-
-                } else {
-                    Toast.makeText(getActivity(), "Błędna data wizyty", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
-
 
         return view;
     }
@@ -124,21 +102,12 @@ public class HoursFragment extends Fragment {
 
                 final Button next = view.findViewById(R.id.btnNextHours);
 
-                //Generate buttons dynamically based on JSON
 
                 requireActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
-
-                        //LinearLayout linear = view.findViewById(R.id.hours_linear);
-                        //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                        Typeface typeface = ResourcesCompat.getFont(getActivity(), R.font.roboto_light);
-
-
-                        //next.setEnabled(false);
-                        //next.setTextColor(Color.rgb(150, 150, 150));
+                        Typeface typeface = ResourcesCompat.getFont(getActivity(), R.font.roboto);
 
                         final RadioGroup radioGroup = view.findViewById(R.id.radio_group_hours);
 
@@ -153,7 +122,6 @@ public class HoursFragment extends Fragment {
                             rb.setButtonTintList(ContextCompat.getColorStateList(getActivity(), R.color.colorAccent));
                             rb.setTypeface(typeface);
 
-                            //params.setMargins(5, 0, 5, 8);
                             radioGroup.addView(rb);
                         }
 
@@ -161,8 +129,6 @@ public class HoursFragment extends Fragment {
                             @Override
                             public void onCheckedChanged(RadioGroup radioGroup, int checkedID) {
                                 if (checkedID != -1) {
-                                   // next.setEnabled(true);
-                                 //   next.setTextColor(Color.rgb(255, 255, 255));
                                     RadioButton radioButton = view.findViewById(checkedID);
                                     selectedHour = radioButton.getText().toString() + ":00";
                                 }
@@ -210,17 +176,24 @@ public class HoursFragment extends Fragment {
         }*/
 
 
-      /*  ChooseDateFragment chooseDateFragment = new ChooseDateFragment();
+        SummaryFragment summaryFragment = new SummaryFragment();
         Bundle args = new Bundle();
-        args.putString("idDoctor", idDoctor);
-        args.putString("idService", choosedService);
-        args.putString("timeOfService", time);
+        args.putString("idDoctor", requireArguments().getString("idDoctor"));
+        args.putString("idService", requireArguments().getString("idService"));
+        args.putString("timeOfService",  requireArguments().getString("timeOfService"));
+        args.putString("dateVisit",  requireArguments().getString("dateVisit"));
+        args.putString("doctor_name", requireArguments().getString("doctor_name"));
+        args.putString("doctor_surname", requireArguments().getString("doctor_surname"));
+        args.putString("description", requireArguments().getString("description"));
+        args.putString("price", requireArguments().getString("price"));
+        args.putString("typeOfService", requireArguments().getString("typeOfService"));
+        args.putString("hour", selectedHour);
 
-        chooseDateFragment.setArguments(args);
+        summaryFragment.setArguments(args);
 
         FragmentTransaction transaction = Objects.requireNonNull(requireActivity().getSupportFragmentManager()).beginTransaction();
-        transaction.replace(R.id.home_fragment, chooseDateFragment);
-        transaction.addToBackStack(null).commit();*/
+        transaction.replace(R.id.fragment_hours, summaryFragment);
+        transaction.addToBackStack(null).commit();
     }
 
 }

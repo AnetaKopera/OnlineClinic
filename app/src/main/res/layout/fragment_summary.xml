@@ -3,72 +3,73 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/fragment_hours"
+    android:id="@+id/fragment_summary"
     android:background="#7BCACE"
     android:clickable="true"
     android:focusable="true">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:scrollbarSize="0dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
+
             <ImageView
                 android:layout_width="126dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
-                android:src="@drawable/icon_4_5" />
+                android:src="@drawable/icon_5_5"/>
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:text="Wybierz godzinę"
-                android:textAlignment="center"
+                android:text="Podsumowanie"
                 android:textColor="#000000"
-                android:textSize="24sp" />
-
-
+                android:textSize="24sp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto"
+                android:textAlignment="center"/>
 
             <LinearLayout
-                android:id="@+id/hours_linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/layout_style"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:id="@+id/summary_linear"
+                android:padding="20dp">
 
-                <RadioGroup
-
-                    android:id="@+id/radio_group_hours"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp" />
             </LinearLayout>
 
+            <Button
+                android:id="@+id/btn_Without_Pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Zamów bez płacenia"
+                android:fontFamily="@font/roboto_light"
+                android:background="@drawable/button_style"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:textColor="#000000"
+                android:textSize="22sp"/>
 
             <Button
-                android:id="@+id/btnNextHours"
-                android:layout_width="match_parent"
+                android:id="@+id/btn_With_Pay"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/button_style"
+                android:text="Zamów oraz zapłać"
                 android:fontFamily="@font/roboto_light"
+                android:background="@drawable/button_style"
+                android:layout_gravity="center"
                 android:padding="10dp"
-                android:text="DALEJ"
                 android:textColor="#000000"
-                android:textSize="22sp" />
+                android:textSize="22sp"/>
 
         </LinearLayout>
 

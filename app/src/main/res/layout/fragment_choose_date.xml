@@ -31,23 +31,23 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Wybierz datę wizyty"
-                android:textColor="#000000"
-                android:textSize="24sp"
-                android:fontFamily="@font/roboto_light"
                 android:layout_marginBottom="16dp"
-                android:textAlignment="center"/>
+                android:fontFamily="@font/roboto"
+                android:text="Wybierz datę wizyty"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="24sp" />
 
             <CalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#FFFFFF"
+                android:background="#E4F0F1"
                 android:padding="10dp"
                 android:scrollbarAlwaysDrawHorizontalTrack="true"
-                android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:scrollbarStyle="outsideOverlay"/>
+                android:selectedWeekBackgroundColor="#FFFFFF"
+                android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Body2" />
 
 
             <Button

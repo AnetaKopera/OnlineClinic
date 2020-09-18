@@ -146,6 +146,12 @@ public class ChooseDateFragment extends Fragment {
                 args.putString("idService", requireArguments().getString("idService"));
                 args.putString("timeOfService",  requireArguments().getString("timeOfService"));
                 args.putString("dateVisit",  selectedDate);
+                args.putString("doctor_name", requireArguments().getString("doctor_name"));
+                args.putString("doctor_surname", requireArguments().getString("doctor_surname"));
+                args.putString("description", requireArguments().getString("description"));
+                args.putString("price", requireArguments().getString("price"));
+                args.putString("typeOfService", requireArguments().getString("typeOfService"));
+
 
                 hoursFragment.setArguments(args);
 
