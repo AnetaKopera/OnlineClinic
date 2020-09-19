@@ -87,7 +87,7 @@ public class DisplayServices extends Fragment {
                 JsonParser jsonParser = new JsonParser();
                 ;
                 final LinkedHashMap<String, String> parsedServices;
-                parsedServices = jsonParser.parseDoctors(result);
+                parsedServices = jsonParser.parseServices(result);
                 final Object[] keys = parsedServices.keySet().toArray();
 
                 requireActivity().runOnUiThread(new Runnable() {

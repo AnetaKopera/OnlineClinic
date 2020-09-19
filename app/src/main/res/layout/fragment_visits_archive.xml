@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/fragment_my_visits"
+    android:id="@+id/fragment_visits_archive"
     android:background="#7BCACE"
     android:clickable="true"
     android:focusable="true">
@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/linear_actual_visits"
+            android:id="@+id/linear_archive_visits"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

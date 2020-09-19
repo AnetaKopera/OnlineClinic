@@ -5,11 +5,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
 
 import com.example.onlineclinic.JsonParser;
 import com.example.onlineclinic.R;
@@ -31,7 +30,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class MyVisitsFragment extends Fragment {
+public class ArchiveVisitsFragment extends Fragment {
 
     private View view;
     private ProgressDialog pDialog;
@@ -42,9 +41,9 @@ public class MyVisitsFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_my_visits, container, false);
+        view = inflater.inflate(R.layout.fragment_visits_archive, container, false);
 
-        new MyVisitsFragment.VisitInfo().execute();
+        new ArchiveVisitsFragment.VisitInfo().execute();
 
         return view;
     }
@@ -70,7 +69,7 @@ public class MyVisitsFragment extends Fragment {
                     .add("id", id)
                     .build();
 
-            String url_services = "http://10.0.2.2/online_clinic/actual_visits.php";
+            String url_services = "http://10.0.2.2/online_clinic/archive_visits.php";
             Request request = new Request.Builder()
                     .url(url_services)
                     .post(postData)
@@ -89,18 +88,17 @@ public class MyVisitsFragment extends Fragment {
 
 
                     final LinkedHashMap<String, String> parsedVisits;
-                    parsedVisits = jsonParser.parseVisits(result);
+                    parsedVisits = jsonParser.parseArchiveVisits(result);
                     final Object[] keys = parsedVisits.keySet().toArray();
                     amountVisits = jsonParser.getQueryAmount(result);
 
-                    System.out.println("papap " + parsedVisits);
 
                     requireActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                             params.setMargins(0, 16, 0, 16);
-                            linear = view.findViewById(R.id.linear_actual_visits);
+                            linear = view.findViewById(R.id.linear_archive_visits);
                             linear.removeAllViews();
 
                             Typeface typeface_normal = ResourcesCompat.getFont(getActivity(), R.font.roboto);
@@ -118,20 +116,17 @@ public class MyVisitsFragment extends Fragment {
                                 edit.setGravity(Gravity.CENTER);
                                 edit.setTextSize(20);
 
-                                final String typeOfService = parsedVisits.get(keys[i * 7]);
-                                final String nameDoctor = parsedVisits.get(keys[i * 7 + 1]);
-                                final String surnameDoctor = parsedVisits.get(keys[i * 7 + 2]);
-                                final String dateVisit = parsedVisits.get(keys[i * 7 + 3]);
-                                final String hourVisit = parsedVisits.get(keys[i * 7 + 4]);
-                                final String payInAdvance = parsedVisits.get(keys[i * 7 + 5]);
-                                final String token = parsedVisits.get(keys[i * 7 + 6]);
+                                final String typeOfService = parsedVisits.get(keys[i * 6]);
+                                final String nameDoctor = parsedVisits.get(keys[i * 6 + 1]);
+                                final String surnameDoctor = parsedVisits.get(keys[i * 6 + 2]);
+                                final String dateVisit = parsedVisits.get(keys[i * 6 + 3]);
+                                final String hourVisit = parsedVisits.get(keys[i * 6 + 4]);
+                                final String payInAdvance = parsedVisits.get(keys[i * 6 + 5]);
 
-                                String text = "Wizyta:\n" + typeOfService + "\n" + dateVisit + "\n" + hourVisit.substring(0, 5) + "\nDoktor: " + nameDoctor + " " + surnameDoctor;
+                                String text = "Wizyta:\n" + typeOfService + "\n" + dateVisit + "\n" + hourVisit.substring(0, 5) + "\nDoktor: " + nameDoctor + " " + surnameDoctor + "\n";
                                 if (payInAdvance.equals("Y")) {
-                                    text += "\nZapłacono";
+                                    text += " Zapłacono";
                                 }
-
-                                text += "\nToken: " + token;
                                 edit.setText(text);
                                 linear.addView(edit, params);
                             }

@@ -17,6 +17,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.onlineclinic.PayPal.PayPalMainActivity;
 import com.example.onlineclinic.R;
 import com.example.onlineclinic.UserActivity;
 
@@ -24,6 +25,7 @@ import com.example.onlineclinic.UserActivity;
 public class SummaryFragment extends Fragment {
     private View view;
     private String payInAdvance;
+    private String price;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_summary, container, false);
@@ -33,7 +35,7 @@ public class SummaryFragment extends Fragment {
         String doctorName = requireArguments().getString("doctor_name");
         String doctorSurname = requireArguments().getString("doctor_surname");
         String description = requireArguments().getString("description");
-        String price = requireArguments().getString("price");
+        price = requireArguments().getString("price");
         String typeOfService = requireArguments().getString("typeOfService");
         String hour = requireArguments().getString("hour");
 
@@ -74,7 +76,7 @@ public class SummaryFragment extends Fragment {
         btn_with_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //  startActivityForResult(new Intent(getActivity(), PayPalMainActivity.class).putExtra("AMOUNT", servicePrice), 808);
+                startActivityForResult(new Intent(getActivity(), PayPalMainActivity.class).putExtra("AMOUNT", price), 808);
             }
         });
 

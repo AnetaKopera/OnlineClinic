@@ -12,24 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.onlineclinic.ui.home.DisplayServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-
-import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -74,7 +63,7 @@ public class CheckVisitFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Trwa sprawdzanie wizyty");
+            pDialog.setMessage("Trwa wyszukiwanie wizyt");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -97,18 +86,16 @@ public class CheckVisitFragment extends Fragment {
             try {
                 Response response = client.newCall(request).execute();
                 result = Objects.requireNonNull(response.body()).string();
-                //System.out.println(result);
-                System.out.println("result: " + result);
+
                 JsonParser jsonParser = new JsonParser();
 
                 validate = jsonParser.getQuerySuccess(result);
-                System.out.println("hej: " + validate);
+
                 if (validate == 1) {
 
 
                     final LinkedHashMap<String, String> parsedCheckedVisit;
                     parsedCheckedVisit = jsonParser.parseSingleVisit(result);
-                    //final Object[] keys = parsedCheckedVisit.keySet().toArray();
 
                     requireActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -117,7 +104,6 @@ public class CheckVisitFragment extends Fragment {
                             linear = view.findViewById(R.id.checkedVisit);
                             linear.removeAllViews();
 
-                            //Typeface typeface = ResourcesCompat.getFont(getActivity(), R.font.roboto_light);
                             Typeface typeface_normal = ResourcesCompat.getFont(getActivity(), R.font.roboto);
 
 
@@ -131,9 +117,6 @@ public class CheckVisitFragment extends Fragment {
 
                             edit.setGravity(Gravity.CENTER);
                             edit.setTextSize(20);
-                            //editParams.setMargins(5, 0, 5, 16);
-
-                            //nameDoctor":"Eugeniusz","surnameDoctor":"Maczek","dateVisit":"2020-09-29","hourVisit":"10:30:00","payInAdvance":"N"}
 
                             final String typeOfService = parsedCheckedVisit.get("typeOfService");
                             final String nameDoctor = parsedCheckedVisit.get("nameDoctor");
@@ -142,17 +125,14 @@ public class CheckVisitFragment extends Fragment {
                             final String hourVisit = parsedCheckedVisit.get("hourVisit");
                             final String payInAdvance = parsedCheckedVisit.get("payInAdvance");
 
-                            String text = "Wizyta:\n" + typeOfService + "\n" + dateVisit + "\n" + hourVisit.substring(0,5) + "\nDoktor: " + nameDoctor + " " + surnameDoctor + "\n";
+                            String text = "Wizyta:\n" + typeOfService + "\n" + dateVisit + "\n" + hourVisit.substring(0, 5) + "\nDoktor: " + nameDoctor + " " + surnameDoctor + "\n";
                             if (payInAdvance.equals("Y")) {
                                 text += " Zapłacono";
-                            } else {
-                                text += "Niezapłacono";
                             }
                             edit.setText(text);
                             linear.addView(edit);
-
-
                         }
+
 
                     });
                 } else {
@@ -174,6 +154,7 @@ public class CheckVisitFragment extends Fragment {
 
         protected void onPostExecute(String result) {
             pDialog.dismiss();
+
         }
     }
 

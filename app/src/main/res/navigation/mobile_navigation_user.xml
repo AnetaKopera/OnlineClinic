@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/nav_my_profile"
         android:name="com.example.onlineclinic.ui.myprofile.MyProfileFragment"
-        android:label="My Profile"
+        android:label="Moje konto"
         tools:layout="@layout/fragment_my_profile">
 
     </fragment>
@@ -21,9 +21,17 @@
     <fragment
         android:id="@+id/nav_my_visits"
         android:name="com.example.onlineclinic.ui.myvisits.MyVisitsFragment"
-        android:label="My Visits"
+        android:label="Aktualne wizyty"
         tools:layout="@layout/fragment_my_visits">
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_my_history"
+        android:name="com.example.onlineclinic.ui.myvisits.ArchiveVisitsFragment"
+        android:label="Historia wizyt"
+        tools:layout="@layout/fragment_visits_archive">
+    </fragment>
+
     <fragment
         android:id="@+id/nav_info"
         android:name="com.example.onlineclinic.InfoFragment"
@@ -40,7 +48,7 @@
     <fragment
         android:id="@+id/nav_check_visit"
         android:name="com.example.onlineclinic.CheckVisitFragment"
-        android:label="Sprwadź wizytę"
+        android:label="Sprawdź wizytę"
         tools:layout="@layout/fragment_check_visit">
     </fragment>
 
