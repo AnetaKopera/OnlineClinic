@@ -1,6 +1,7 @@
 package com.example.onlineclinic.ui.home;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,29 +10,47 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.onlineclinic.R;
-import com.example.onlineclinic.UserActivity;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
-import java.util.Objects;
 
-
-public class SummaryFragment extends Fragment {
+public class ThankYouFragment extends Fragment {
     private View view;
-    private String payInAdvance;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_summary, container, false);
+        view = inflater.inflate(R.layout.fragment_thank_you, container, false);
 
-        String idService = requireArguments().getString("idService");
+        ImageView imageView = view.findViewById(R.id.codeQR);
+
+
+        QRCodeWriter  qrCodeWriter = new QRCodeWriter();
+        try {
+            BitMatrix bitMatrix = qrCodeWriter.encode("HelatCare_test12345", BarcodeFormat.QR_CODE, 300, 300);
+            Bitmap bitmap = Bitmap.createBitmap(300,300,Bitmap.Config.RGB_565);
+
+            for(int x=0; x<300; x++){
+                for(int y=0; y<300; y++){
+                    bitmap.setPixel(x,y,bitMatrix.get(x,y) ? Color.BLACK : Color.WHITE);
+                }
+            }
+            imageView.setImageBitmap(bitmap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*String idService = requireArguments().getString("idService");
         String timeOfService = requireArguments().getString("timeOfService");
         String dateVisit = requireArguments().getString("dateVisit");
         String doctorName = requireArguments().getString("doctor_name");
@@ -61,39 +80,28 @@ public class SummaryFragment extends Fragment {
 
         Button btn_without_pay = view.findViewById(R.id.btn_Without_Pay);
         Button btn_with_pay = view.findViewById(R.id.btn_With_Pay);
+        btn_with_pay.setVisibility(View.GONE);
 
-        if (UserActivity.getUserId().equals(""))  //User is not logged in
-        {
-            // Toast.makeText(getActivity(),"Niezalogowany", Toast.LENGTH_LONG).show();
-            btn_with_pay.setVisibility(View.GONE);
-
-        } else    //User is logged in
-        {
-
-            //Toast.makeText(getActivity(),"ZALOGOWANY", Toast.LENGTH_LONG).show();
-            //changeFragment(argument, firmData, serviceTime, serviceName, servicePrice);
-        }
-
-
-        btn_without_pay.setOnClickListener(new View.OnClickListener() {
+     *//*   btn_without_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 payInAdvance = "N";
                 makeOrder();
             }
         });
-
-        btn_with_pay.setOnClickListener(new View.OnClickListener() {
+*//*
+      *//*  btn_with_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //  startActivityForResult(new Intent(getActivity(), PayPalMainActivity.class).putExtra("AMOUNT", servicePrice), 808);
+                startActivityForResult
+                        (new Intent(getActivity(), PayPalMainActivity.class).putExtra("AMOUNT", servicePrice), 808);
             }
-        });
+        });*/
 
         return view;
     }
 
-    @Override
+   /* @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -101,12 +109,12 @@ public class SummaryFragment extends Fragment {
             // payInAdvance = "Y";
             makeOrder();
         }
-    }
+    }*/
 
     private void makeOrder() {
-        ThankYouFragment thankYouFragment = new ThankYouFragment();
+        /*MakeOrderFragment makeOrderFragment = new MakeOrderFragment();
 
-        /*Bundle args = new Bundle();
+        Bundle args = new Bundle();
         args.putString("ServiceID", serviceID);
         args.putString("DateVisit", selectedDate);
         args.putString("HourVisit", selectedHour);
@@ -114,10 +122,10 @@ public class SummaryFragment extends Fragment {
         args.putString("ID_Worker", workerID);
         args.putString("ID_Client", clientID);
 
-        makeOrderFragment.setArguments(args);*/
+        makeOrderFragment.setArguments(args);
 
-        FragmentTransaction transaction = (requireActivity().getSupportFragmentManager()).beginTransaction();
-        transaction.replace(R.id.fragment_summary, thankYouFragment);
-        transaction.addToBackStack(null).commit();
+        FragmentTransaction transaction = (Objects.requireNonNull(getActivity()).getSupportFragmentManager()).beginTransaction();
+        transaction.replace(R.id.fragment_summary, makeOrderFragment);
+        transaction.addToBackStack(null).commit();*/
     }
 }

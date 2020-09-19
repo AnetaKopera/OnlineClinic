@@ -144,8 +144,8 @@ public class ChooseDateFragment extends Fragment {
                 Bundle args = new Bundle();
                 args.putString("idDoctor", requireArguments().getString("idDoctor"));
                 args.putString("idService", requireArguments().getString("idService"));
-                args.putString("timeOfService",  requireArguments().getString("timeOfService"));
-                args.putString("dateVisit",  selectedDate);
+                args.putString("timeOfService", requireArguments().getString("timeOfService"));
+                args.putString("dateVisit", selectedDate);
                 args.putString("doctor_name", requireArguments().getString("doctor_name"));
                 args.putString("doctor_surname", requireArguments().getString("doctor_surname"));
                 args.putString("description", requireArguments().getString("description"));
@@ -156,7 +156,7 @@ public class ChooseDateFragment extends Fragment {
                 hoursFragment.setArguments(args);
 
                 FragmentTransaction transaction = Objects.requireNonNull(requireActivity().getSupportFragmentManager()).beginTransaction();
-                transaction.replace(R.id.home_fragment, hoursFragment);
+                transaction.replace(R.id.fragment_choose_date, hoursFragment);
                 transaction.addToBackStack(null).commit();
             } else {
                 Toast.makeText(getActivity(), "Brak dostępnych terminów w ten dzień", Toast.LENGTH_SHORT).show();
