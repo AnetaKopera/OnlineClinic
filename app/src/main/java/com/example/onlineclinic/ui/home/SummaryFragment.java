@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,8 +20,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.onlineclinic.R;
 import com.example.onlineclinic.UserActivity;
 
-import java.util.Objects;
-
 
 public class SummaryFragment extends Fragment {
     private View view;
@@ -31,7 +28,6 @@ public class SummaryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_summary, container, false);
 
-        String idService = requireArguments().getString("idService");
         String timeOfService = requireArguments().getString("timeOfService");
         String dateVisit = requireArguments().getString("dateVisit");
         String doctorName = requireArguments().getString("doctor_name");
@@ -41,7 +37,7 @@ public class SummaryFragment extends Fragment {
         String typeOfService = requireArguments().getString("typeOfService");
         String hour = requireArguments().getString("hour");
 
-        final String summaryText = typeOfService + "\n\n" + description + "\n\nData wizyty: " + dateVisit + " " + hour.substring(0, 5) + " \nCzas trwania: " + timeOfService + "min\nCena: " + price + " zł\n\nDoktor: " + doctorName + " " + doctorSurname;
+        final String summaryText = typeOfService + "\n\n" + description + "\n\nData wizyty: " + dateVisit + " " + hour.substring(0, 5) + " \nCzas trwania: " + timeOfService + " min\nCena: " + price + " zł\n\nDoktor: " + doctorName + " " + doctorSurname;
 
 
         LinearLayout summary = view.findViewById(R.id.summary_linear);
@@ -62,16 +58,8 @@ public class SummaryFragment extends Fragment {
         Button btn_without_pay = view.findViewById(R.id.btn_Without_Pay);
         Button btn_with_pay = view.findViewById(R.id.btn_With_Pay);
 
-        if (UserActivity.getUserId().equals(""))  //User is not logged in
-        {
-            // Toast.makeText(getActivity(),"Niezalogowany", Toast.LENGTH_LONG).show();
+        if (UserActivity.getUserId().equals("")) {
             btn_with_pay.setVisibility(View.GONE);
-
-        } else    //User is logged in
-        {
-
-            //Toast.makeText(getActivity(),"ZALOGOWANY", Toast.LENGTH_LONG).show();
-            //changeFragment(argument, firmData, serviceTime, serviceName, servicePrice);
         }
 
 
@@ -98,7 +86,7 @@ public class SummaryFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == 808) {
-            // payInAdvance = "Y";
+            payInAdvance = "Y";
             makeOrder();
         }
     }
@@ -106,15 +94,20 @@ public class SummaryFragment extends Fragment {
     private void makeOrder() {
         ThankYouFragment thankYouFragment = new ThankYouFragment();
 
-        /*Bundle args = new Bundle();
-        args.putString("ServiceID", serviceID);
-        args.putString("DateVisit", selectedDate);
-        args.putString("HourVisit", selectedHour);
-        args.putString("PayInAdvance", payInAdvance);
-        args.putString("ID_Worker", workerID);
-        args.putString("ID_Client", clientID);
+        Bundle args = new Bundle();
+        args.putString("idDoctor", requireArguments().getString("idDoctor"));
+        args.putString("idService", requireArguments().getString("idService"));
+        args.putString("timeOfService", requireArguments().getString("timeOfService"));
+        args.putString("dateVisit", requireArguments().getString("dateVisit"));
+        args.putString("doctor_name", requireArguments().getString("doctor_name"));
+        args.putString("doctor_surname", requireArguments().getString("doctor_surname"));
+        args.putString("description", requireArguments().getString("description"));
+        args.putString("price", requireArguments().getString("price"));
+        args.putString("typeOfService", requireArguments().getString("typeOfService"));
+        args.putString("hour", requireArguments().getString("hour"));
+        args.putString("payInAdvance", payInAdvance);
 
-        makeOrderFragment.setArguments(args);*/
+        thankYouFragment.setArguments(args);
 
         FragmentTransaction transaction = (requireActivity().getSupportFragmentManager()).beginTransaction();
         transaction.replace(R.id.fragment_summary, thankYouFragment);
