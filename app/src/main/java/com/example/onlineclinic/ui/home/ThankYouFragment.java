@@ -168,7 +168,7 @@ public class ThankYouFragment extends Fragment {
                 TextView textView = view.findViewById(R.id.textView_thank_you_2);
 
                 if (UserActivity.getUserId().equals("")) {
-                    textView.setText("Jesteś niezalogowany zrób zrzut ekranu by zachować kod QR lub zapisz token");
+                    textView.setText("Jesteś niezalogowany\nzrób zrzut ekranu by zachować kod QR lub zapisz token");
                 } else {
                     textView.setText("Podgląd wizyty znajduje się\nw zakładce \"Aktualne wizyty\"");
                 }

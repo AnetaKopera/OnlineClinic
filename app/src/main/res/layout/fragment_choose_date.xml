@@ -43,11 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#E4F0F1"
-                android:padding="10dp"
-                android:scrollbarAlwaysDrawHorizontalTrack="true"
-                android:selectedWeekBackgroundColor="#FFFFFF"
-                android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Body2" />
+                android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:background="@drawable/calendar_shape"/>
 
 
             <Button

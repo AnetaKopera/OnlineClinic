@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/fragment_check_visit"
+    android:background="#7BCACE"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textViewToken"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wprowadź token wizyty:"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto"
+                android:textAlignment="center"/>
+
+            <EditText
+                android:id="@+id/et_token"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Token"
+                android:ems="15"
+                android:textColor="#000000"
+                android:background="@drawable/edit_text_border"
+                android:inputType="textEmailAddress"
+                android:padding="8dp"
+                android:fontFamily="@font/roboto"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/btn_checkVisit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="SPRAWDŹ"
+                android:fontFamily="@font/roboto_light"
+                android:background="@drawable/button_style"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:textColor="#000000"
+                android:textSize="22sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/checkedVisit"
+                android:padding="20dp"
+                android:layout_marginTop="16dp">
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>

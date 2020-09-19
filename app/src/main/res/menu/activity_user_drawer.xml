@@ -8,11 +8,14 @@
             android:id="@+id/nav_home_user"
             android:icon="@drawable/home"
             android:title="Strona główna" />
-
         <item
             android:id="@+id/nav_my_profile"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="Mój profil" />
+        <item
+            android:id="@+id/nav_check_visit"
+            android:icon="@drawable/ic_event_black_24dp"
+            android:title="Sprawdź wizytę" />
 
         <item
             android:id="@+id/nav_my_visits"
@@ -24,14 +27,16 @@
             android:icon="@drawable/ic_today_black_24dp"
             android:title="Historia wizyt" />
 
-        <item
-            android:id="@+id/nav_info"
-            android:icon="@drawable/ic_info_outline_black_24dp"
-            android:title="Kontakt" />
 
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
             android:title="Wyloguj" />
+
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="Kontakt" />
+
     </group>
 </menu>

@@ -7,70 +7,78 @@
     android:background="#7BCACE"
     android:clickable="true"
     android:focusable="true">
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:scrollbarSize="0dp">
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:layout_width="126dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/icon_4_5" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="Wybierz godzinę"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="126dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:src="@drawable/icon_4_5" />
-            <TextView
-                android:id="@+id/textView"
+            android:orientation="vertical"
+         >
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:text="Wybierz godzinę"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="24sp" />
-
-
+                android:layout_height="450dp"
+                android:scrollbarSize="2dp"
+                android:background="@drawable/layout_style"
+                android:layout_marginTop="16dp">
 
             <LinearLayout
                 android:id="@+id/hours_linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/layout_style"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingLeft="16dp">
 
                 <RadioGroup
 
                     android:id="@+id/radio_group_hours"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp" />
+                    />
             </LinearLayout>
 
 
-            <Button
-                android:id="@+id/btnNextHours"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/button_style"
-                android:fontFamily="@font/roboto_light"
-                android:padding="10dp"
-                android:text="DALEJ"
-                android:textColor="#000000"
-                android:textSize="22sp" />
+            </ScrollView>
 
         </LinearLayout>
 
-    </ScrollView>
+
+        <Button
+            android:id="@+id/btnNextHours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/button_style"
+            android:fontFamily="@font/roboto_light"
+            android:padding="10dp"
+            android:text="DALEJ"
+            android:textColor="#000000"
+            android:textSize="22sp" />
+    </LinearLayout>
 </RelativeLayout>

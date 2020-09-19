@@ -9,9 +9,9 @@
             android:icon="@drawable/home"
             android:title="Strona główna" />
         <item
-            android:id="@+id/nav_info"
-            android:icon="@drawable/ic_info_outline_black_24dp"
-            android:title="Kontakt" />
+            android:id="@+id/nav_check_visit"
+            android:icon="@drawable/ic_event_black_24dp"
+            android:title="Sprawdź wizytę" />
         <item
             android:id="@+id/nav_sign_up"
             android:icon="@drawable/ic_person_add_black_24dp"
@@ -21,6 +21,10 @@
             android:id="@+id/nav_sign_in"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="Zaloguj się" />
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="Kontakt" />
 
     </group>
 </menu>
