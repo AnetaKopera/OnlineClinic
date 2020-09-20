@@ -6,17 +6,12 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,10 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.onlineclinic.JsonParser;
 import com.example.onlineclinic.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.Locale;
 import java.util.Objects;
 
 import okhttp3.FormBody;
@@ -45,7 +37,7 @@ public class HoursFragment extends Fragment {
     private ProgressDialog pDialog;
 
     private View view;
-    private String selectedHour="";
+    private String selectedHour = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -138,10 +130,9 @@ public class HoursFragment extends Fragment {
                         next.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if (!selectedHour.equals(""))
-                                {
+                                if (!selectedHour.equals("")) {
                                     changeFragment();
-                                }else{
+                                } else {
                                     Toast.makeText(getActivity(), "Wybierz godzinę", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -165,23 +156,13 @@ public class HoursFragment extends Fragment {
     }
 
     private void changeFragment() {
-        //tescik
-        /*if (UserActivity.getUserId().equals(""))  //User is not logged in
-        {
-            Toast.makeText(getActivity(),"Niezalogowany", Toast.LENGTH_LONG).show();
-        } else    //User is logged in
-        {
-            Toast.makeText(getActivity(),"ZALOGOWANY", Toast.LENGTH_LONG).show();
-            //changeFragment(argument, firmData, serviceTime, serviceName, servicePrice);
-        }*/
-
 
         SummaryFragment summaryFragment = new SummaryFragment();
         Bundle args = new Bundle();
         args.putString("idDoctor", requireArguments().getString("idDoctor"));
         args.putString("idService", requireArguments().getString("idService"));
-        args.putString("timeOfService",  requireArguments().getString("timeOfService"));
-        args.putString("dateVisit",  requireArguments().getString("dateVisit"));
+        args.putString("timeOfService", requireArguments().getString("timeOfService"));
+        args.putString("dateVisit", requireArguments().getString("dateVisit"));
         args.putString("doctor_name", requireArguments().getString("doctor_name"));
         args.putString("doctor_surname", requireArguments().getString("doctor_surname"));
         args.putString("description", requireArguments().getString("description"));

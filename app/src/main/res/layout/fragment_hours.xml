@@ -36,15 +36,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-         >
+            android:orientation="vertical">
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="450dp"
                 android:scrollbarSize="2dp"
                 android:background="@drawable/layout_style"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="20dp">
 
             <LinearLayout
                 android:id="@+id/hours_linear"
@@ -72,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/button_style"
             android:fontFamily="@font/roboto_light"

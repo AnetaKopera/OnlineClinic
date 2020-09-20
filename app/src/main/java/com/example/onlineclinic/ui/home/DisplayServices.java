@@ -1,6 +1,5 @@
 package com.example.onlineclinic.ui.home;
 
-import com.example.onlineclinic.UserActivity;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
@@ -16,7 +15,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -140,7 +138,6 @@ public class DisplayServices extends Fragment {
                             final String description = parsedServices.get(keys[i + 2]);
                             final String price = parsedServices.get(keys[i + 3]);
                             final String timeOfService = parsedServices.get(keys[i + 4]);
-                            // final String idClinic = parsedServices.get(keys[i + 5]);
 
                             final String serviceInformation = description + "\n" + "Cena " + price + " zł\n" + "Czas wizyty " + timeOfService + " min.";
 
@@ -214,15 +211,7 @@ public class DisplayServices extends Fragment {
     }
 
     private void changeFragment() {
-        //tescik
-        /*if (UserActivity.getUserId().equals(""))  //User is not logged in
-        {
-            Toast.makeText(getActivity(),"Niezalogowany", Toast.LENGTH_LONG).show();
-        } else    //User is logged in
-        {
-            Toast.makeText(getActivity(),"ZALOGOWANY", Toast.LENGTH_LONG).show();
-            //changeFragment(argument, firmData, serviceTime, serviceName, servicePrice);
-        }*/
+
         ChooseDateFragment chooseDateFragment = new ChooseDateFragment();
         Bundle args = new Bundle();
         args.putString("idDoctor", idDoctor);

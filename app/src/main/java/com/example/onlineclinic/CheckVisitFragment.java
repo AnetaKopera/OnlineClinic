@@ -2,6 +2,7 @@ package com.example.onlineclinic;
 
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -12,12 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.util.LinkedHashMap;
 import java.util.Objects;
@@ -50,7 +56,7 @@ public class CheckVisitFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 checkThisToken = token.getText().toString().trim();
-                token.setText("");
+                // token.setText("");
                 new CheckVisitFragment.VisitInfo().execute();
             }
         });
@@ -131,6 +137,32 @@ public class CheckVisitFragment extends Fragment {
                             }
                             edit.setText(text);
                             linear.addView(edit);
+
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(600, 600);
+                            params.setMargins(20, 40, 20, 20);
+                            params.gravity = Gravity.CENTER_HORIZONTAL;
+                            ImageView imageView = new ImageView(getActivity());
+                            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+                            try {
+                                BitMatrix bitMatrix = qrCodeWriter.encode(checkThisToken, BarcodeFormat.QR_CODE, 600, 600);
+                                Bitmap bitmap = Bitmap.createBitmap(600, 600, Bitmap.Config.RGB_565);
+
+                                for (int x = 0; x < 600; x++) {
+                                    for (int y = 0; y < 600; y++) {
+                                        bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                                    }
+                                }
+                                imageView.setImageBitmap(bitmap);
+                                imageView.setBackgroundResource(R.drawable.qr_shape);
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            linear.addView(imageView, params);
+
+
                         }
 
 
@@ -141,7 +173,7 @@ public class CheckVisitFragment extends Fragment {
                         public void run() {
 
                             linear = view.findViewById(R.id.checkedVisit);
-                            linear.removeAllViews();
+                            //linear.removeAllViews();
                             Toast.makeText(getActivity(), "Błędny token", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -156,6 +188,7 @@ public class CheckVisitFragment extends Fragment {
             pDialog.dismiss();
 
         }
+
     }
 
 

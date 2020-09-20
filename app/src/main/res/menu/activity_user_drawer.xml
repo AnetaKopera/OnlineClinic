@@ -27,16 +27,17 @@
             android:icon="@drawable/ic_today_black_24dp"
             android:title="Historia wizyt" />
 
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="Kontakt" />
 
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
             android:title="Wyloguj" />
 
-        <item
-            android:id="@+id/nav_info"
-            android:icon="@drawable/ic_info_outline_black_24dp"
-            android:title="Kontakt" />
+
 
     </group>
 </menu>

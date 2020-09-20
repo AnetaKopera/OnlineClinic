@@ -74,10 +74,10 @@ public class PayPalMainActivity extends AppCompatActivity
                 }
             } else if (resultCode == Activity.RESULT_CANCELED)
             {
-                Toast.makeText(this, "Cancel", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Zrezygnowano", Toast.LENGTH_SHORT).show();
             }
         } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID)
-            Toast.makeText(this, "Invalid", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Błąd", Toast.LENGTH_SHORT).show();
 
         super.onActivityResult(requestCode, resultCode, data);
     }

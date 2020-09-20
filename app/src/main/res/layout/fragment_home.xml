@@ -10,20 +10,6 @@
     android:focusable="true"
     android:background="@drawable/doctor">
 
-    <!--TextView
-        android:id="@+id/text_home"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" /-->
-
     <View
         android:id="@+id/view"
         android:layout_width="360dp"
@@ -131,5 +117,24 @@
 
             />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textLogin_More"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/layout_style"
+        android:fontFamily="@font/roboto_light"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="5dp"
+        android:text="\t\t\t\tZaloguj się by skorzystać\n\t\t\t\t\t\t\tz dodatkowych opcji!"
+        android:textColor="#000000"
+        android:textSize="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

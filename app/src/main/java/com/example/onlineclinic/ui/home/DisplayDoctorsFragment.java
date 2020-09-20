@@ -29,11 +29,7 @@ import java.lang.reflect.Field;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class DisplayDoctorsFragment extends Fragment {
 
@@ -81,7 +77,6 @@ public class DisplayDoctorsFragment extends Fragment {
                     public void run() {
 
                         LinearLayout linear = view.findViewById(R.id.fragment_doctors_layout);
-                        //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
                         Typeface typeface = ResourcesCompat.getFont(getActivity(), R.font.roboto_light);
                         Typeface typeface_normal = ResourcesCompat.getFont(getActivity(), R.font.roboto);

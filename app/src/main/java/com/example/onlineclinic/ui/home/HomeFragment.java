@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.onlineclinic.JsonParser;
 import com.example.onlineclinic.R;
+import com.example.onlineclinic.UserActivity;
 
 import java.util.Objects;
 
@@ -40,6 +42,13 @@ public class HomeFragment extends Fragment {
         requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        final TextView tvMoreOption = view.findViewById(R.id.textLogin_More);
+
+        if (!UserActivity.getUserId().equals("")) {
+            tvMoreOption.setVisibility(View.GONE);
+        }
+
 
         final EditText et_doctor = view.findViewById(R.id.et_doctor);
         final EditText et_specialization = view.findViewById(R.id.et_specialization);
@@ -90,11 +99,9 @@ public class HomeFragment extends Fragment {
             try {
                 Response response = client.newCall(request).execute();
                 result = Objects.requireNonNull(response.body()).string();
-                //System.out.println(result);
-                JsonParser jsonParser = new JsonParser();
 
+                JsonParser jsonParser = new JsonParser();
                 amount = jsonParser.getQueryAmount(result);
-                //System.out.println("Query amount= " + amount);
 
             } catch (Exception e) {
                 System.out.println("Error: " + e);

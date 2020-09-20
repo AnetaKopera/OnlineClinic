@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.onlineclinic.JsonParser;
 import com.example.onlineclinic.R;
-import com.example.onlineclinic.ui.home.HoursFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
