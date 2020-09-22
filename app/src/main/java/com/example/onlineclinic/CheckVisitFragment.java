@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -113,7 +114,7 @@ public class CheckVisitFragment extends Fragment {
                             Typeface typeface_normal = ResourcesCompat.getFont(getActivity(), R.font.roboto);
 
 
-                            final EditText edit = new EditText(getActivity());
+                            final TextView edit = new TextView(getActivity());
 
                             edit.setClickable(true);
                             edit.setFocusable(false);
@@ -123,6 +124,7 @@ public class CheckVisitFragment extends Fragment {
 
                             edit.setGravity(Gravity.CENTER);
                             edit.setTextSize(20);
+                            edit.setTextIsSelectable(true);
 
                             final String typeOfService = parsedCheckedVisit.get("typeOfService");
                             final String nameDoctor = parsedCheckedVisit.get("nameDoctor");

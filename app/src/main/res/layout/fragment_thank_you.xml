@@ -57,6 +57,7 @@
                 android:layout_gravity="center"
                 android:textColor="#000000"
                 android:fontFamily="@font/roboto_light"
+                android:textIsSelectable="true"
                 android:textSize="22dp"/>
 
             <TextView

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.onlineclinic.JsonParser;
@@ -107,13 +108,14 @@ public class MyVisitsFragment extends Fragment {
 
 
                             for (int i = 0; i < amountVisits; i++) {
-                                final EditText edit = new EditText(getActivity());
+                                final TextView edit = new TextView(getActivity());
 
                                 edit.setClickable(true);
                                 edit.setFocusable(false);
                                 edit.setTypeface(typeface_normal);
                                 edit.setBackgroundResource(R.drawable.layout_style);
                                 edit.setTextColor(Color.rgb(0, 0, 0));
+                                edit.setTextIsSelectable(true);
 
                                 edit.setGravity(Gravity.CENTER);
                                 edit.setTextSize(20);
@@ -126,12 +128,12 @@ public class MyVisitsFragment extends Fragment {
                                 final String payInAdvance = parsedVisits.get(keys[i * 7 + 5]);
                                 final String token = parsedVisits.get(keys[i * 7 + 6]);
 
-                                String text = "Wizyta:\n" + typeOfService + "\n" + dateVisit + "\n" + hourVisit.substring(0, 5) + "\nDoktor: " + nameDoctor + " " + surnameDoctor;
+                                String text = "\nWizyta:\n" + typeOfService + "\n" + dateVisit + "\n" + hourVisit.substring(0, 5) + "\nDoktor: " + nameDoctor + " " + surnameDoctor;
                                 if (payInAdvance.equals("Y")) {
                                     text += "\nZapłacono";
                                 }
 
-                                text += "\nToken: " + token;
+                                text += "\nToken: " + token + "\n";
                                 edit.setText(text);
                                 linear.addView(edit, params);
                             }
